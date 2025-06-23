@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:final_project/providers/auth_provider.dart';
 import 'package:final_project/providers/firestore_provider.dart';
 
