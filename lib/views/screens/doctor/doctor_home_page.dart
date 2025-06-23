@@ -1,3 +1,4 @@
+import 'package:final_project/models/appointment.dart';
 import 'package:final_project/providers/firestore_provider.dart';
 
 import 'package:final_project/utils/config.dart';
@@ -13,10 +14,24 @@ class DoctorHomePage extends StatefulWidget {
 }
 
 class _DoctorHomePageState extends State<DoctorHomePage> {
+  List<AppointmentModel?> filteredDoctorsAppointments = [];
+
+  void filterAppointments(BuildContext context) {
+    final provider = Provider.of<FireStoreProvider>(context, listen: false);
+
+    filteredDoctorsAppointments = provider.allAppointments
+        .where((app) => app?.doctor.id == provider.doctor?.id)
+        .toList();
+  }
+
   @override
   Widget build(BuildContext context) {
+    filterAppointments(context);
     return Consumer<FireStoreProvider>(
       builder: (context, provider, child) {
+        // var filteredDoctorsAppointments = provider.allAppointments
+        //     .where((app) => app!.doctor.id == provider.doctor!.id)
+        //     .toList();
         return Scaffold(
           body: SafeArea(
             child: Padding(
@@ -32,38 +47,10 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                   Config.spaceSmall,
 
                   Expanded(
-                    child: provider.allAppointments.isEmpty
-                        ? Center(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.calendar_today_outlined,
-                                  size: 60,
-                                  color: Colors.grey.withAlpha(102),
-                                ),
-                                const SizedBox(height: 20),
-                                Text(
-                                  'No Appointments Scheduled',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.grey.withAlpha(179),
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                Text(
-                                  'Your upcoming appointments will appear here',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    color: Colors.grey.withAlpha(128),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          )
+                    child: filteredDoctorsAppointments.isEmpty
+                        ? Center(child: CircularProgressIndicator())
                         : ListView.builder(
-                            itemCount: provider.allAppointments.length,
+                            itemCount: filteredDoctorsAppointments.length,
                             itemBuilder: ((context, index) {
                               return Card(
                                 shape: RoundedRectangleBorder(
@@ -80,8 +67,10 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                       Row(
                                         children: [
                                           CircleAvatar(
-                                            backgroundImage: AssetImage(
-                                              "assets/profile1.jpg",
+                                            backgroundImage: NetworkImage(
+                                              filteredDoctorsAppointments[index]!
+                                                  .patient
+                                                  .imgUrl,
                                             ),
                                           ),
                                           const SizedBox(width: 10),
@@ -90,8 +79,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                provider
-                                                    .allAppointments[index]!
+                                                filteredDoctorsAppointments[index]!
                                                     .patient
                                                     .name,
                                                 style: const TextStyle(
@@ -101,7 +89,7 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                               ),
                                               const SizedBox(height: 5),
                                               Text(
-                                                "Age ${provider.allAppointments[index]!.patient.age}",
+                                                "Age ${filteredDoctorsAppointments[index]!.patient.age}",
                                                 style: const TextStyle(
                                                   color: Colors.grey,
                                                   fontSize: 12,
@@ -114,15 +102,14 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                       ),
                                       const SizedBox(height: 15),
                                       ScheduleCard(
-                                        date: provider
-                                            .allAppointments[index]!
-                                            .date,
-                                        day: provider
-                                            .allAppointments[index]!
+                                        date:
+                                            filteredDoctorsAppointments[index]!
+                                                .date,
+                                        day: filteredDoctorsAppointments[index]!
                                             .day,
-                                        time: provider
-                                            .allAppointments[index]!
-                                            .time,
+                                        time:
+                                            filteredDoctorsAppointments[index]!
+                                                .time,
                                       ),
                                       const SizedBox(height: 15),
                                     ],

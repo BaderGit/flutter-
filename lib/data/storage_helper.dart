@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
@@ -10,11 +11,15 @@ class StorageHelper {
   // final String cloudName = 'dbugwbcyz';
   // final String apiKey = '466423851958144';
   // final String apiSecret = 'zldBvDChEK3AJ_PQov5HNlPlJIA';
-  String get cloudName => dotenv.get('CLOUDINARY_CLOUD_NAME');
-  String get apiKey => dotenv.get('CLOUDINARY_API_KEY');
-  String get apiSecret => dotenv.get('CLOUDINARY_API_SECRET');
-
+  String? cloudName = dotenv.env["CLOUDINARY_CLOUD_NAME"];
+  String? apiKey = dotenv.env["CLOUDINARY_API_KEY"];
+  String? apiSecret = dotenv.env["CLOUDINARY_API_SECRET"];
+  // String  apiKey
+  // String  apiSecret
   Future<String?> uploadImage(File imageFile) async {
+    log(cloudName ?? "");
+    log(apiKey ?? "");
+    log(apiSecret ?? "");
     try {
       final url = Uri.parse(
         'https://api.cloudinary.com/v1_1/$cloudName/image/upload',

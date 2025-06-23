@@ -1,0 +1,116 @@
+{
+  "@@locale": "en",
+  "@@last_modified": "2023-11-15",
+  "appTitle": "My App",
+  
+  
+  "ok": "OK",
+  "cancel": "Cancel",
+  "save": "Save",
+  "edit": "Edit",
+  "delete": "Delete",
+  "search": "Search",
+  "settings": "Settings",
+  "profile": "Profile",
+  "home": "Home",
+  "back": "Back",
+  "next": "Next",
+  "previous": "Previous",
+  "submit": "Submit",
+  "continueButton": "Continue",
+  "skip": "Skip",
+  "done": "Done",
+  "close": "Close",
+  
+  
+  "menu": "Menu",
+  "dashboard": "Dashboard",
+  "notifications": "Notifications",
+  "messages": "Messages",
+  "favorites": "Favorites",
+  "history": "History",
+  
+  
+  "login": "Login",
+  "logout": "Logout",
+  "signup": "Sign Up",
+  "username": "Username",
+  "password": "Password",
+  "email": "Email",
+  "forgotPassword": "Forgot Password?",
+  "resetPassword": "Reset Password",
+  "confirmPassword": "Confirm Password",
+  
+  
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  "phoneNumber": "Phone Number",
+  "address": "Address",
+  "city": "City",
+  "country": "Country",
+  "zipCode": "Zip Code",
+  
+  
+  "success": "Success",
+  "error": "Error",
+  "warning": "Warning",
+  "info": "Info",
+  "loading": "Loading...",
+  "noInternet": "No Internet Connection",
+  "tryAgain": "Try Again",
+  "noResults": "No Results Found",
+  
+  
+  "today": "Today",
+  "yesterday": "Yesterday",
+  "tomorrow": "Tomorrow",
+  "day": "Day",
+  "week": "Week",
+  "month": "Month",
+  "year": "Year",
+  
+  
+  "welcome": "Welcome",
+  "welcomeBack": "Welcome Back",
+  "thankYou": "Thank You",
+  "pleaseWait": "Please Wait",
+  "areYouSure": "Are You Sure?",
+  "confirmAction": "Confirm Action",
+  "selectOption": "Select Option",
+  "all": "All",
+  "none": "None",
+  
+  
+  "requiredField": "This field is required",
+  "invalidEmail": "Invalid email address",
+  "invalidPhone": "Invalid phone number",
+  "passwordTooShort": "Password is too short",
+  "passwordsDontMatch": "Passwords don't match",
+  
+  
+  "welcomeUser": "Welcome, {name}!",
+  "@welcomeUser": {
+    "description": "Welcome message with username",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  
+  "itemsCount": "{count} item",
+  "@itemsCount": {
+    "description": "Pluralized item count",
+    "placeholders": {
+      "count": {}
+    }
+  },
+  
+  
+  "products": "Products",
+  "categories": "Categories",
+  "cart": "Cart",
+  "checkout": "Checkout",
+  "total": "Total",
+  "price": "Price",
+  "quantity": "Quantity",
+  "description": "Description"
+}

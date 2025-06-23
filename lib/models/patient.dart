@@ -1,8 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:final_project/models/appointment.dart';
-
 class PatientModel {
   String? id;
   final String imgUrl;
@@ -10,16 +8,16 @@ class PatientModel {
   final String age;
   final String gender;
   final String email;
-  final List<AppointmentModel>? patientAppointments;
+  final bool isDoc;
 
   PatientModel({
     this.id,
-    this.patientAppointments,
     required this.imgUrl,
     required this.name,
     required this.age,
     required this.gender,
     required this.email,
+    required this.isDoc,
   });
 
   Map<String, dynamic> toMap() {
@@ -30,9 +28,7 @@ class PatientModel {
       'age': age,
       'gender': gender,
       'email': email,
-      'patientAppointments': patientAppointments
-          ?.map((x) => x.toMap())
-          .toList(),
+      'isDoc': isDoc,
     };
   }
 
@@ -44,13 +40,7 @@ class PatientModel {
       age: map['age'] as String,
       gender: map['gender'] as String,
       email: map['email'] as String,
-      patientAppointments: map['patientAppointments'] != null
-          ? List<AppointmentModel>.from(
-              (map['patientAppointments'] as List<int>).map<AppointmentModel?>(
-                (x) => AppointmentModel.fromMap(x as Map<String, dynamic>),
-              ),
-            )
-          : null,
+      isDoc: map['isDoc'] as bool,
     );
   }
 

@@ -30,46 +30,6 @@ class LocalNotification {
     );
   }
 
-  void showBasicNotification() async {
-    NotificationDetails details = NotificationDetails(
-      android: AndroidNotificationDetails(
-        "id 1",
-        "basic notification",
-        importance: Importance.max,
-        priority: Priority.max,
-      ),
-    );
-
-    await flutterLocalNotificationsPlugin.show(
-      0,
-      "title",
-      "basic notification",
-      details,
-      payload: "PayloadData",
-    );
-  }
-
-  void showRepeatedNotification() async {
-    NotificationDetails details = NotificationDetails(
-      android: AndroidNotificationDetails(
-        "id 2",
-        " repeated notification",
-        importance: Importance.max,
-        priority: Priority.max,
-      ),
-    );
-
-    await flutterLocalNotificationsPlugin.periodicallyShow(
-      androidScheduleMode: AndroidScheduleMode.exact,
-      1,
-      "repetaed notification",
-      "body",
-      RepeatInterval.everyMinute,
-      details,
-      payload: "PayloadData",
-    );
-  }
-
   void showSchduledNotification(TZDateTime appointmentTime) async {
     // tz.initializeTimeZones();
     // tz.setLocalLocation(tz.getLocation('Africa/Cairo'));
@@ -102,46 +62,70 @@ class LocalNotification {
 
     // Get current time in Cairo
     final now = tz.TZDateTime.now(cairo);
-    final tzTime = DateFormat('HH:mm a').format(now);
-    final tzDate = DateFormat('M/dd/yyyy').format(now);
+    // final tzTime = DateFormat('HH:mm a').format(now);
 
-    // Parse appointment date and time (note: fixed format pattern)
     final appointmentDateTime = DateFormat(
       'M/dd/yyyy HH:mm',
     ).parse("${appointment.date} ${appointment.time}");
 
-    // Convert to TZDateTime in Cairo timezone
-    // final appointmentTzDateTime = tz.TZDateTime.from(
-    //   appointmentDateTime,
-    //   cairo,
-    // );
-    final testTzDateTime = tz.TZDateTime.from(
-      tz.TZDateTime.now(tz.local),
+    final appointmentReminder = appointmentDateTime.subtract(Duration(days: 1));
+    final scheduledAppointmentTime = tz.TZDateTime.from(
+      appointmentReminder,
       cairo,
     );
 
-    // Logging for debugging
-    log('Appointment date: ${appointment.date}');
-    log('Appointment time: ${appointment.time}');
-    log('Current Cairo time: $tzTime');
-    log('Current Cairo date: $tzDate');
+    if (scheduledAppointmentTime.subtract(Duration(days: 1)).day == now.day) {
+      if (appointmentReminder.isAfter(now)) {
+        showSchduledNotification(scheduledAppointmentTime);
+      }
+    }
+
+    // final testTzDateTime = tz.TZDateTime.from(
+    //   tz.TZDateTime.now(tz.local).add(Duration(days: 2)),
+    //   cairo,
+    // );
+    // log(testTzDateTime.toString());
+    // final reminder = testTzDateTime.subtract(Duration(days: 1));
+    // log(reminder.toString());
+
+    // log(reminder.subtract(Duration(days: 1)).toString());
+    // log(now.toString());
+
+    // if (reminder.subtract(Duration(days: 1)).day == now.day) {
+    //   if (reminder.isAfter(now)) {
+    //     log("inside if $reminder");
+    //     showSchduledNotification(reminder);
+    //     log(reminder.toString());
+    //     log(now.toString());
+    //   }
+    // }
+    final testTzDateTime = tz.TZDateTime.from(
+      now.add(Duration(seconds: 40)),
+      cairo,
+    );
+
+    final reminder = testTzDateTime.subtract(Duration(seconds: 30));
+
+    if (reminder.isAfter(now)) {
+      log("inside if $reminder");
+      showSchduledNotification(reminder);
+    }
 
     // log('Appointment as TZDateTime: $appointmentTzDateTime');
 
     // Compare dates
 
-    if (tzDate == "6/21/2025") {
-      if ("19:19 PM" == tzTime) {
-        log(tzDate);
-        log(tzTime);
-        if (testTzDateTime.isAfter(tz.TZDateTime.now(tz.local))) {}
+    // if (tzDate == "6/21/2025") {
+    //   if ("19:19 PM" == tzTime) {
+    //     log(tzDate);
+    //     log(tzTime);
 
-        // showSchduledNotification(appointmentTzDateTime);
-        log('test timezone time : $testTzDateTime');
-        log('current timezone time : ${tz.TZDateTime.now(tz.local)}');
-        showSchduledNotification(testTzDateTime.add(Duration(seconds: 10)));
-      }
-    }
+    //     // showSchduledNotification(appointmentTzDateTime);
+    //     log('test timezone time : $testTzDateTime');
+    //     log('current timezone time : ${tz.TZDateTime.now(tz.local)}');
+    //     showSchduledNotification(testTzDateTime.add(Duration(seconds: 10)));
+    //   }
+    // }
     // if (tzDate == appointment.date) {
     //   if ("18:41 PM" == tzTime) {
 

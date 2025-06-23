@@ -1,4 +1,6 @@
 import 'package:final_project/providers/auth_provider.dart';
+
+import 'package:final_project/providers/language_provider.dart';
 import 'package:final_project/utils/app_router.dart';
 import 'package:final_project/utils/config.dart';
 import 'package:final_project/utils/text.dart';
@@ -9,8 +11,10 @@ import 'package:final_project/views/widgets/sign_up_form.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../l10n/app_localizations.dart';
+
 class AuthPage extends StatefulWidget {
-  const AuthPage({Key? key}) : super(key: key);
+  const AuthPage({super.key});
 
   @override
   State<AuthPage> createState() => _AuthPageState();
@@ -25,6 +29,12 @@ class _AuthPageState extends State<AuthPage> {
 
     return Consumer<AppAuthProvider>(
       builder: (context, auth, child) {
+        // fireStore.getAllDoctors();
+        // log(
+        //   "this is the doctors list length" +
+        //       fireStore.allDoctors.length.toString(),
+        // );
+
         return Scaffold(
           resizeToAvoidBottomInset: true,
           body: SafeArea(
@@ -40,10 +50,10 @@ class _AuthPageState extends State<AuthPage> {
                     children: [
                       Text(
                         auth.userType == "patient"
-                            ? AppText.enText['welcome_patient_text']!
+                            ? AppLocalizations.of(context)!.welcome
                             : auth.userType == "doctor"
-                            ? AppText.enText['welcome_doctor_text']!
-                            : AppText.enText['welcome_staff_text']!,
+                            ? AppLocalizations.of(context)!.welcome
+                            : AppLocalizations.of(context)!.welcome,
                         style: const TextStyle(
                           fontSize: 36,
                           fontWeight: FontWeight.bold,
@@ -52,12 +62,17 @@ class _AuthPageState extends State<AuthPage> {
 
                       Expanded(
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            IconButton(
-                              onPressed: () {},
-                              icon: Icon(Icons.language),
-                            ),
+                            // IconButton(
+                            //   onPressed: () {
+                            //     Provider.of<LanguageProvider>(
+                            //       context,
+                            //       listen: false,
+                            //     ).toggleLanguage();
+                            //   },
+                            //   icon: Icon(Icons.language),
+                            // ),
+                            Expanded(child: SizedBox()),
                             IconButton(
                               onPressed: () {
                                 AppRouter.popRoute();
@@ -160,6 +175,27 @@ class _AuthPageState extends State<AuthPage> {
                         ),
                       ],
                     ),
+                  Config.spaceMedium,
+
+                  Center(
+                    child: TextButton(
+                      style: ButtonStyle(),
+                      child: Text(
+                        "change language",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.grey.shade500,
+                        ),
+                      ),
+                      onPressed: () {
+                        Provider.of<LanguageProvider>(
+                          context,
+                          listen: false,
+                        ).toggleLanguage();
+                      },
+                    ),
+                  ),
 
                   // Add some extra space at the bottom when keyboard appears
                   SizedBox(height: MediaQuery.of(context).viewInsets.bottom),

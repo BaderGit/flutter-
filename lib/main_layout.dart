@@ -3,7 +3,7 @@ import 'package:final_project/providers/firestore_provider.dart';
 import 'package:final_project/views/screens/appointment/appointment_page.dart';
 import 'package:final_project/views/screens/doctor/doctor_profile_page.dart';
 import 'package:final_project/views/screens/doctor/doctor_home_page.dart';
-import 'package:final_project/views/screens/patient/history_page.dart';
+import 'package:final_project/views/screens/appointment/history_page.dart';
 
 import 'package:final_project/views/screens/patient/patient_home_page.dart';
 import 'package:final_project/views/screens/patient/patient_profile_page.dart';
@@ -21,18 +21,21 @@ class MainLayout extends StatefulWidget {
 class _MainLayoutState extends State<MainLayout> {
   @override
   void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
       final fireStore = Provider.of<FireStoreProvider>(context, listen: false);
       final auth = Provider.of<AppAuthProvider>(context, listen: false);
       if (auth.userType == "patient") {
-        fireStore.getPatient();
-        fireStore.getAllAppointments();
-        fireStore.getAllDoctors();
+        await fireStore.getPatient();
+        await fireStore.getAllAppointments();
+        await fireStore.getTodaysAppointment();
+        await fireStore.getAllDoctors();
+        await fireStore.getAllStoredAppointments();
       } else {
-        fireStore.getDoctor();
+        await fireStore.getDoctor();
+        await fireStore.getAllAppointments();
       }
     });
+    super.initState();
   }
 
   //variable declaration

@@ -21,6 +21,7 @@ class FireStoreProvider extends ChangeNotifier {
   List<AppointmentModel?> allPatientAppointments = [];
   List<DoctorModel?> filteredDoctors = [];
   String currentCat = "";
+
   List<Map<String, dynamic>> medCat = [
     {"icon": FontAwesomeIcons.userDoctor, "category": "General"},
     {"icon": FontAwesomeIcons.heartPulse, "category": "Cardiology"},
@@ -30,20 +31,13 @@ class FireStoreProvider extends ChangeNotifier {
     {"icon": FontAwesomeIcons.teeth, "category": "Dental"},
   ];
 
-  FireStoreProvider() {
-    // getAllAppointments();
-    // getAllStoredAppointments();
-  }
-
-  insertNewCat() {}
-
   getPatient() async {
     patient = await FireStoreHelper.fireStoreHelper.getPatientFromFireStore(
       AuthHelper.authHelper.getUserId(),
     );
     notifyListeners();
-    getAllAppointments();
-    getAllStoredAppointments();
+    await getAllAppointments();
+    await getAllStoredAppointments();
   }
 
   getDoctor() async {
@@ -67,9 +61,6 @@ class FireStoreProvider extends ChangeNotifier {
     allAppointments = await FireStoreHelper.fireStoreHelper
         .getAllAppointments();
     notifyListeners();
-
-    getallPatientAppointment();
-    getTodaysAppointment();
   }
 
   getAllDoctors() async {
@@ -94,13 +85,14 @@ class FireStoreProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  deleteAppointment(String id) {
+  deleteAppointment(String id) async {
     FireStoreHelper.fireStoreHelper.deleteAppointmentFromFireStore(id);
     allAppointments.removeWhere((appointment) => appointment!.id == id);
 
     notifyListeners();
 
-    getAllAppointments();
+    await getAllAppointments();
+    await getTodaysAppointment();
   }
 
   deleteStoredAppointment(String id) {
@@ -124,9 +116,9 @@ class FireStoreProvider extends ChangeNotifier {
       notifyListeners();
     }
 
-    getAllAppointments();
-    getAllStoredAppointments();
-    // getTodaysAppointment();
+    await getAllAppointments();
+    await getAllStoredAppointments();
+    await getTodaysAppointment();
   }
 
   updateStoredAppointment(AppointmentModel updatedAppointment) async {
@@ -142,49 +134,69 @@ class FireStoreProvider extends ChangeNotifier {
       notifyListeners();
     }
 
-    getAllAppointments();
-    getAllStoredAppointments();
+    await getAllAppointments();
+    await getAllStoredAppointments();
   }
 
   addAppointment(AppointmentModel appointment) async {
     await FireStoreHelper.fireStoreHelper.addAppointmentToFireStore(
       appointment,
     );
-    getAllAppointments();
+    await getAllAppointments();
+    await getTodaysAppointment();
   }
 
   storeAppointment(AppointmentModel appointment) async {
     await FireStoreHelper.fireStoreHelper.storeAppointmentToFireStore(
       appointment,
     );
-    getAllStoredAppointments();
+    await getAllStoredAppointments();
   }
 
   getAllStoredAppointments() async {
     allStoredAppointments = await FireStoreHelper.fireStoreHelper
         .getAllStoredAppointments();
+    // getallPatientStoredAppointment();
     notifyListeners();
   }
 
   getTodaysAppointment() {
     var now = DateTime.now();
     var todaysDate = DateFormat('M/d/yyyy').format(now);
+    log("this is all appointments${allAppointments.length}");
+    allPatientAppointments = allAppointments
+        .where((appointment) => appointment!.patient.id == patient!.id)
+        .toList();
+
+    log("this is all patient appointments${allPatientAppointments.length}");
     patienttodaysAppointments = allPatientAppointments
         .where((appointment) => appointment!.date == todaysDate)
         .toList();
     patienttodaysAppointments.sort(
-      (app1, app2) => app1!.time.compareTo(app2!.time),
+      (app1, app2) => app2!.time.compareTo(app1!.time),
     );
-    notifyListeners();
-  }
-
-  getallPatientAppointment() {
-    allPatientAppointments = allAppointments
-        .where((app) => app!.patient.id == patient!.id)
-        .toList();
 
     notifyListeners();
-    log("${allPatientAppointments.length}");
-    // getTodaysAppointment();
+    log(
+      "this is all patient todays appointments${patienttodaysAppointments.length}",
+    );
   }
+
+  // getallPatientAppointment() {
+  //   allPatientAppointments = allAppointments
+  //       .where((app) => app!.patient.id == patient!.id)
+  //       .toList();
+
+  //   notifyListeners();
+  //   log("${allPatientAppointments.length}");
+  //   // getTodaysAppointment();
+  // }
+
+  // getallPatientStoredAppointment() {
+  // allPatientAppointments = allStoredAppointments
+  //     .where((app) => app!.patient.id == patient!.id)
+  //     .toList();
+
+  //   notifyListeners();
+  // }
 }

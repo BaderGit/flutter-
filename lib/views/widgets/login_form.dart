@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:final_project/providers/auth_provider.dart';
 import 'package:final_project/providers/firestore_provider.dart';
 
@@ -15,12 +17,45 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
+  // @override
+  // void initState() {
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     final fireStore = Provider.of<FireStoreProvider>(context, listen: false);
+
+  //     fireStore.getAllDoctors();
+
+  //     log(
+  //       "this is alldoctors from initState" +
+  //           fireStore.allDoctors.length.toString(),
+  //     );
+  //   });
+  //   super.initState();
+  // }
+  // getAllDoctors(BuildContext context) async {
+
+  // }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   WidgetsBinding.instance.addPostFrameCallback((_) {
+  //     getAllDoctors(context);
+  //   });
+  // }
+
   bool obsecurePass = true;
 
   @override
   Widget build(BuildContext context) {
+    // getAllDoctors(context);
     return Consumer2<AppAuthProvider, FireStoreProvider>(
       builder: (context, auth, fireStore, child) {
+        // fireStore.getAllDoctors();
+        // log(
+        //   "this is the doctors list length" +
+        //       fireStore.allDoctors.length.toString(),
+        // );
+
         if (auth.userType != "doctor") {
           return Form(
             key: auth.loginKey,
@@ -77,7 +112,17 @@ class _LoginFormState extends State<LoginForm> {
                   title: "Sign In",
 
                   onPressed: () async {
+                    // log("${doctor.length}");
                     await auth.signIn();
+                    // log(doctor.length.toString());
+                    // log(fireStore.allDoctors[0]!.email.toString());
+                    // if (doctor.isNotEmpty) {
+                    //   CustomShowDialog.showDialogFunction(
+                    //     "u are not a patient",
+                    //   );
+                    // } else {
+
+                    // }
                   },
                   disable: false,
                 ),

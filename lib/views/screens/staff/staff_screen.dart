@@ -14,7 +14,7 @@ class StaffScreen extends StatefulWidget {
 
 class _StaffScreenState extends State<StaffScreen> {
   bool obsecurePass = true;
-  String? selectedSpeciality; // To track the selected speciality
+  // To track the selected speciality
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +74,7 @@ class _StaffScreenState extends State<StaffScreen> {
                               prefixIcon: Icon(Icons.medical_services_outlined),
                               prefixIconColor: Config.primaryColor,
                             ),
-                            value: selectedSpeciality,
+                            value: auth.selectedSpeciality,
                             onChanged: (String? newValue) {
                               setState(() {
                                 auth.selectedSpeciality = newValue;

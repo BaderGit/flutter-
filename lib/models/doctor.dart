@@ -7,12 +7,14 @@ class DoctorModel {
   final String name;
   final String email;
   final String speciality;
+  final bool isDoc;
 
   DoctorModel({
     this.id,
     required this.name,
     required this.email,
     required this.speciality,
+    required this.isDoc,
   });
 
   Map<String, dynamic> toMap() {
@@ -21,6 +23,7 @@ class DoctorModel {
       'name': name,
       'email': email,
       'speciality': speciality,
+      'isDoc': isDoc,
     };
   }
 
@@ -30,6 +33,7 @@ class DoctorModel {
       name: map['name'] as String,
       email: map['email'] as String,
       speciality: map['speciality'] as String,
+      isDoc: map['isDoc'] as bool,
     );
   }
 

@@ -12,9 +12,17 @@ class HistoryPage extends StatefulWidget {
 
 class _HistoryPageState extends State<HistoryPage> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Consumer<FireStoreProvider>(
       builder: (context, provider, child) {
+        var filteredPatientStoredAppointments = provider.allStoredAppointments
+            .where((app) => app!.patient.id == provider.patient!.id)
+            .toList();
         return Scaffold(
           body: SafeArea(
             child: Padding(
@@ -62,7 +70,7 @@ class _HistoryPageState extends State<HistoryPage> {
                         )
                       : Expanded(
                           child: ListView.builder(
-                            itemCount: provider.allStoredAppointments.length,
+                            itemCount: filteredPatientStoredAppointments.length,
                             itemBuilder: ((context, index) {
                               return Card(
                                 shape: RoundedRectangleBorder(
@@ -89,8 +97,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                provider
-                                                    .allStoredAppointments[index]!
+                                                filteredPatientStoredAppointments[index]!
                                                     .doctor
                                                     .name,
                                                 style: const TextStyle(
@@ -100,8 +107,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                               ),
                                               const SizedBox(height: 5),
                                               Text(
-                                                provider
-                                                    .allStoredAppointments[index]!
+                                                filteredPatientStoredAppointments[index]!
                                                     .doctor
                                                     .speciality,
                                                 style: const TextStyle(
@@ -116,22 +122,21 @@ class _HistoryPageState extends State<HistoryPage> {
                                       ),
                                       const SizedBox(height: 15),
                                       ScheduleCard(
-                                        date: provider
-                                            .allStoredAppointments[index]!
-                                            .date,
-                                        day: provider
-                                            .allStoredAppointments[index]!
-                                            .day,
-                                        time: provider
-                                            .allStoredAppointments[index]!
-                                            .time,
+                                        date:
+                                            filteredPatientStoredAppointments[index]!
+                                                .date,
+                                        day:
+                                            filteredPatientStoredAppointments[index]!
+                                                .day,
+                                        time:
+                                            filteredPatientStoredAppointments[index]!
+                                                .time,
                                       ),
                                       const SizedBox(height: 15),
                                       OutlinedButton(
                                         onPressed: () {
                                           provider.deleteStoredAppointment(
-                                            provider
-                                                .allStoredAppointments[index]!
+                                            filteredPatientStoredAppointments[index]!
                                                 .id!,
                                           );
                                         },

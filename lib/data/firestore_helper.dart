@@ -10,6 +10,7 @@ class FireStoreHelper {
   FirebaseFirestore firestoreInstance = FirebaseFirestore.instance;
   var paitentCollection = FirebaseFirestore.instance.collection('patients');
   var doctorCollection = FirebaseFirestore.instance.collection('doctors');
+  var staffCollection = FirebaseFirestore.instance.collection('staffs');
   var appointmentCollection = FirebaseFirestore.instance.collection(
     'appointments',
   );
@@ -17,14 +18,11 @@ class FireStoreHelper {
     'stored_appointments',
   );
 
-  insert() {
-    firestoreInstance.collection('categories').add({"name": "Food"});
-  }
-
   //backend firebase code to add user to firestore
 
-  addUserToFireStore(PatientModel patient) async {
+  Future<bool> addUserToFireStore(PatientModel patient) async {
     await paitentCollection.doc(patient.id).set(patient.toMap());
+    return true;
   }
 
   //backend firebase code to add doctor  to firestore
@@ -63,18 +61,35 @@ class FireStoreHelper {
     return null;
   }
 
-  Future<PatientModel> getPatientFromFireStore(String? id) async {
+  Future<PatientModel?>? getPatientFromFireStore(String? id) async {
     DocumentSnapshot<Map<String, dynamic>> documentSnapShot =
         await paitentCollection.doc(id).get();
-
-    return PatientModel.fromMap(documentSnapShot.data()!);
+    Map<String, dynamic>? data = documentSnapShot.data();
+    if (data != null) {
+      return PatientModel?.fromMap(data);
+    }
+    return null;
   }
 
-  Future<DoctorModel> getDoctorFromFireStore(String? id) async {
+  Future<bool> getStaffFromFireStore(String? id) async {
     DocumentSnapshot<Map<String, dynamic>> documentSnapShot =
+        await staffCollection.doc(id).get();
+    Map<String, dynamic>? data = documentSnapShot.data();
+    if (data != null) {
+      return true;
+    }
+    return false;
+  }
+
+  Future<DoctorModel?>? getDoctorFromFireStore(String? id) async {
+    DocumentSnapshot<Map<String, dynamic>>? documentSnapShot =
         await doctorCollection.doc(id).get();
 
-    return DoctorModel.fromMap(documentSnapShot.data()!);
+    Map<String, dynamic>? data = documentSnapShot.data();
+    if (data != null) {
+      return DoctorModel?.fromMap(data);
+    }
+    return null;
   }
 
   Future<List<DoctorModel>> getAllDoctors() async {

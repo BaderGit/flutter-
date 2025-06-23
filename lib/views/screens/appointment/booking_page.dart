@@ -174,8 +174,10 @@ class _BookingPageState extends State<BookingPage> {
                               day: getDay,
                               time: getTime,
                             );
-                        provider.updateAppointment(updatedAppointment);
-                        provider.updateStoredAppointment(updatedAppointment);
+                        await provider.updateAppointment(updatedAppointment);
+                        await provider.updateStoredAppointment(
+                          updatedAppointment,
+                        );
                         LocalNotification.localNotification.getRightTime(
                           updatedAppointment,
                         );
@@ -201,8 +203,8 @@ class _BookingPageState extends State<BookingPage> {
                           day: getDay,
                         );
 
-                        provider.addAppointment(newAppointmentModel);
-                        provider.storeAppointment(newAppointmentModel);
+                        await provider.addAppointment(newAppointmentModel);
+                        await provider.storeAppointment(newAppointmentModel);
                         LocalNotification.localNotification.getRightTime(
                           newAppointmentModel,
                         );

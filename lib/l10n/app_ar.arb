@@ -1,0 +1,115 @@
+{
+  "@@locale": "ar",
+  "@@last_modified": "2023-11-15",
+  "appTitle": "تطبيقي",
+  
+  
+  "ok": "موافق",
+  "cancel": "إلغاء",
+  "save": "حفظ",
+  "edit": "تعديل",
+  "delete": "حذف",
+  "search": "بحث",
+  "settings": "الإعدادات",
+  "profile": "الملف الشخصي",
+  "home": "الرئيسية",
+  "back": "رجوع",
+  "next": "التالي",
+  "previous": "السابق",
+  "submit": "إرسال",
+  "continueButton": "متابعة",
+  "skip": "تخطي",
+  "done": "تم",
+  "close": "إغلاق",
+  
+  
+  "menu": "القائمة",
+  "dashboard": "لوحة التحكم",
+  "notifications": "الإشعارات",
+  "messages": "الرسائل",
+  "favorites": "المفضلة",
+  "history": "السجل",
+  
+  
+  "login": "تسجيل الدخول",
+  "logout": "تسجيل الخروج",
+  "signup": "إنشاء حساب",
+  "username": "اسم المستخدم",
+  "password": "كلمة المرور",
+  "email": "البريد الإلكتروني",
+  "forgotPassword": "نسيت كلمة المرور؟",
+  "resetPassword": "إعادة تعيين كلمة المرور",
+  "confirmPassword": "تأكيد كلمة المرور",
+  
+  
+  "firstName": "الاسم الأول",
+  "lastName": "اسم العائلة",
+  "phoneNumber": "رقم الهاتف",
+  "address": "العنوان",
+  "city": "المدينة",
+  "country": "البلد",
+  "zipCode": "الرمز البريدي",
+  
+  
+  "success": "تم بنجاح",
+  "error": "خطأ",
+  "warning": "تحذير",
+  "info": "معلومة",
+  "loading": "جاري التحميل...",
+  "noInternet": "لا يوجد اتصال بالإنترنت",
+  "tryAgain": "حاول مرة أخرى",
+  "noResults": "لا توجد نتائج",
+  
+  
+  "today": "اليوم",
+  "yesterday": "الأمس",
+  "tomorrow": "غدًا",
+  "day": "يوم",
+  "week": "أسبوع",
+  "month": "شهر",
+  "year": "سنة",
+  
+  
+  "welcome": "أهلاً بك",
+  "welcomeBack": "أهلاً بعودتك",
+  "thankYou": "شكرًا لك",
+  "pleaseWait": "يرجى الانتظار",
+  "areYouSure": "هل أنت متأكد؟",
+  "confirmAction": "تأكيد الإجراء",
+  "selectOption": "اختر خيارًا",
+  "all": "الكل",
+  "none": "لا شيء",
+  
+ 
+  "requiredField": "هذا الحقل مطلوب",
+  "invalidEmail": "بريد إلكتروني غير صالح",
+  "invalidPhone": "رقم هاتف غير صالح",
+  "passwordTooShort": "كلمة المرور قصيرة جدًا",
+  "passwordsDontMatch": "كلمتا المرور غير متطابقتين",
+  
+  
+  "welcomeUser": "أهلاً بك، {name}!",
+  "@welcomeUser": {
+    "description": "Welcome message with username",
+    "placeholders": {
+      "name": {}
+    }
+  },
+  
+  "itemsCount": "{count} عنصر",
+  "@itemsCount": {
+    "description": "Pluralized item count",
+    "placeholders": {
+      "count": {}
+    }
+  },
+
+  "products": "المنتجات",
+  "categories": "الفئات",
+  "cart": "عربة التسوق",
+  "checkout": "الدفع",
+  "total": "المجموع",
+  "price": "السعر",
+  "quantity": "الكمية",
+  "description": "الوصف"
+}

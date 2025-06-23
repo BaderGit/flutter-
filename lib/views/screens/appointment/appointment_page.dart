@@ -17,6 +17,9 @@ class _AppointmentPageState extends State<AppointmentPage> {
   Widget build(BuildContext context) {
     return Consumer<FireStoreProvider>(
       builder: (context, provider, child) {
+        var filteredPatientAppointments = provider.allAppointments
+            .where((app) => app!.patient.id == provider.patient!.id)
+            .toList();
         return Scaffold(
           body: SafeArea(
             child: Padding(
@@ -32,7 +35,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                   Config.spaceSmall,
 
                   Expanded(
-                    child: provider.allPatientAppointments.isEmpty
+                    child: filteredPatientAppointments.isEmpty
                         ? Center(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -63,11 +66,9 @@ class _AppointmentPageState extends State<AppointmentPage> {
                             ),
                           )
                         : ListView.builder(
-                            itemCount: provider.allPatientAppointments.length,
+                            itemCount: filteredPatientAppointments.length,
                             itemBuilder: ((context, index) {
-                              print(
-                                "${provider.allPatientAppointments.length}",
-                              );
+                              print("${filteredPatientAppointments.length}");
                               return Card(
                                 shape: RoundedRectangleBorder(
                                   side: const BorderSide(color: Colors.grey),
@@ -93,8 +94,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                provider
-                                                    .allPatientAppointments[index]!
+                                                filteredPatientAppointments[index]!
                                                     .doctor
                                                     .name,
                                                 style: const TextStyle(
@@ -104,8 +104,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                               ),
                                               const SizedBox(height: 5),
                                               Text(
-                                                provider
-                                                    .allPatientAppointments[index]!
+                                                filteredPatientAppointments[index]!
                                                     .doctor
                                                     .speciality,
                                                 style: const TextStyle(
@@ -120,15 +119,14 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                       ),
                                       const SizedBox(height: 15),
                                       ScheduleCard(
-                                        date: provider
-                                            .allPatientAppointments[index]!
-                                            .date,
-                                        day: provider
-                                            .allPatientAppointments[index]!
+                                        date:
+                                            filteredPatientAppointments[index]!
+                                                .date,
+                                        day: filteredPatientAppointments[index]!
                                             .day,
-                                        time: provider
-                                            .allPatientAppointments[index]!
-                                            .time,
+                                        time:
+                                            filteredPatientAppointments[index]!
+                                                .time,
                                       ),
                                       const SizedBox(height: 15),
                                       Row(
@@ -139,8 +137,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                             child: OutlinedButton(
                                               onPressed: () {
                                                 provider.deleteAppointment(
-                                                  provider
-                                                      .allPatientAppointments[index]!
+                                                  filteredPatientAppointments[index]!
                                                       .id!,
                                                 );
                                               },
@@ -163,11 +160,11 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                                 AppRouter.navigateToWidget(
                                                   BookingPage(
                                                     patient: provider.patient!,
-                                                    doctor: provider
-                                                        .allPatientAppointments[index]!
-                                                        .doctor,
-                                                    existingAppointment: provider
-                                                        .allPatientAppointments[index],
+                                                    doctor:
+                                                        filteredPatientAppointments[index]!
+                                                            .doctor,
+                                                    existingAppointment:
+                                                        filteredPatientAppointments[index],
                                                     isReschedule: true,
                                                   ),
                                                 );
