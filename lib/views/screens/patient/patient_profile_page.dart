@@ -1,8 +1,10 @@
 import 'package:final_project/providers/auth_provider.dart';
 import 'package:final_project/providers/firestore_provider.dart';
+import 'package:final_project/providers/language_provider.dart';
 import 'package:final_project/utils/config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:final_project/l10n/app_localizations.dart';
 
 class PatientProfilePage extends StatefulWidget {
   PatientProfilePage({Key? key}) : super(key: key);
@@ -14,10 +16,12 @@ class PatientProfilePage extends StatefulWidget {
 class _PatientProfilePageState extends State<PatientProfilePage> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<FireStoreProvider>(
-      builder: (context, fireStore, child) {
+    final localizations = AppLocalizations.of(context)!;
+
+    return Consumer2<FireStoreProvider, LanguageProvider>(
+      builder: (context, fireStore, lang, child) {
         return fireStore.patient == null
-            ? Center(child: CircularProgressIndicator())
+            ? const Center(child: CircularProgressIndicator())
             : Column(
                 children: [
                   Expanded(
@@ -27,7 +31,7 @@ class _PatientProfilePageState extends State<PatientProfilePage> {
                       color: Config.primaryColor,
                       child: Column(
                         children: <Widget>[
-                          SizedBox(height: 110),
+                          const SizedBox(height: 110),
                           CircleAvatar(
                             radius: 65.0,
                             backgroundImage: NetworkImage(
@@ -35,15 +39,21 @@ class _PatientProfilePageState extends State<PatientProfilePage> {
                             ),
                             backgroundColor: Colors.white,
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Text(
                             fireStore.patient!.name,
-                            style: TextStyle(color: Colors.white, fontSize: 20),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
                           ),
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
                           Text(
-                            '${fireStore.patient!.age} Years Old | ${fireStore.patient!.gender}',
-                            style: TextStyle(color: Colors.white, fontSize: 15),
+                            '${fireStore.patient!.age} ${localizations.yearsOld} | ${lang.getGenderLocalization(fireStore.patient!.gender, localizations)}',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                            ),
                           ),
                         ],
                       ),
@@ -63,50 +73,34 @@ class _PatientProfilePageState extends State<PatientProfilePage> {
                               padding: const EdgeInsets.all(10),
                               child: Column(
                                 children: [
-                                  const Text(
-                                    'Profile',
-                                    style: TextStyle(
+                                  Text(
+                                    localizations.profile,
+                                    style: const TextStyle(
                                       fontSize: 17,
                                       fontWeight: FontWeight.w800,
                                     ),
                                   ),
                                   Divider(color: Colors.grey[300]),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Icons.person,
-                                        color: Colors.blueAccent[400],
-                                        size: 35,
-                                      ),
-                                      const SizedBox(width: 20),
-                                      TextButton(
-                                        onPressed: () {},
-                                        child: const Text(
-                                          "Profile",
-                                          style: TextStyle(
-                                            color: Config.primaryColor,
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
                                   Config.spaceSmall,
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Icon(
-                                        Icons.history,
+                                        Icons.language,
                                         color: Colors.yellowAccent[400],
                                         size: 35,
                                       ),
                                       const SizedBox(width: 20),
                                       TextButton(
-                                        onPressed: () {},
-                                        child: const Text(
-                                          "History",
-                                          style: TextStyle(
+                                        onPressed: () {
+                                          Provider.of<LanguageProvider>(
+                                            context,
+                                            listen: false,
+                                          ).toggleLanguage();
+                                        },
+                                        child: Text(
+                                          localizations.changeLanguage,
+                                          style: const TextStyle(
                                             color: Config.primaryColor,
                                             fontSize: 15,
                                           ),
@@ -131,9 +125,9 @@ class _PatientProfilePageState extends State<PatientProfilePage> {
                                             listen: false,
                                           ).signOut();
                                         },
-                                        child: const Text(
-                                          "Logout",
-                                          style: TextStyle(
+                                        child: Text(
+                                          localizations.logout,
+                                          style: const TextStyle(
                                             color: Config.primaryColor,
                                             fontSize: 15,
                                           ),

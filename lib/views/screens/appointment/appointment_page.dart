@@ -1,9 +1,11 @@
 import 'package:final_project/providers/firestore_provider.dart';
+import 'package:final_project/providers/language_provider.dart';
 import 'package:final_project/utils/app_router.dart';
 import 'package:final_project/utils/config.dart';
 import 'package:final_project/views/screens/appointment/booking_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:final_project/l10n/app_localizations.dart';
 
 class AppointmentPage extends StatefulWidget {
   const AppointmentPage({super.key});
@@ -15,10 +17,12 @@ class AppointmentPage extends StatefulWidget {
 class _AppointmentPageState extends State<AppointmentPage> {
   @override
   Widget build(BuildContext context) {
-    return Consumer<FireStoreProvider>(
-      builder: (context, provider, child) {
-        var filteredPatientAppointments = provider.allAppointments
-            .where((app) => app!.patient.id == provider.patient!.id)
+    final localizations = AppLocalizations.of(context)!;
+
+    return Consumer2<FireStoreProvider, LanguageProvider>(
+      builder: (context, fireStore, lang, child) {
+        var filteredPatientAppointments = fireStore.allAppointments
+            .where((app) => app!.patient.id == fireStore.patient!.id)
             .toList();
         return Scaffold(
           body: SafeArea(
@@ -27,13 +31,15 @@ class _AppointmentPageState extends State<AppointmentPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  const Text(
-                    'Appointment Schedule',
+                  Text(
+                    localizations.appointmentSchedule,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Config.spaceSmall,
-
                   Expanded(
                     child: filteredPatientAppointments.isEmpty
                         ? Center(
@@ -47,7 +53,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                 ),
                                 const SizedBox(height: 20),
                                 Text(
-                                  'No Appointments Scheduled',
+                                  localizations.noAppointments,
                                   style: TextStyle(
                                     fontSize: 18,
                                     color: Colors.grey.withAlpha(179),
@@ -56,7 +62,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
-                                  'Your upcoming appointments will appear here',
+                                  localizations.upcomingAppointments,
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: Colors.grey.withAlpha(128),
@@ -68,7 +74,6 @@ class _AppointmentPageState extends State<AppointmentPage> {
                         : ListView.builder(
                             itemCount: filteredPatientAppointments.length,
                             itemBuilder: ((context, index) {
-                              print("${filteredPatientAppointments.length}");
                               return Card(
                                 shape: RoundedRectangleBorder(
                                   side: const BorderSide(color: Colors.grey),
@@ -104,9 +109,12 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                               ),
                                               const SizedBox(height: 5),
                                               Text(
-                                                filteredPatientAppointments[index]!
-                                                    .doctor
-                                                    .speciality,
+                                                lang.getSpecialityLocalization(
+                                                  filteredPatientAppointments[index]!
+                                                      .doctor
+                                                      .speciality,
+                                                  localizations,
+                                                ),
                                                 style: const TextStyle(
                                                   color: Colors.grey,
                                                   fontSize: 12,
@@ -136,14 +144,14 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                           Expanded(
                                             child: OutlinedButton(
                                               onPressed: () {
-                                                provider.deleteAppointment(
+                                                fireStore.deleteAppointment(
                                                   filteredPatientAppointments[index]!
                                                       .id!,
                                                 );
                                               },
-                                              child: const Text(
-                                                'Cancel',
-                                                style: TextStyle(
+                                              child: Text(
+                                                localizations.cancel,
+                                                style: const TextStyle(
                                                   color: Config.primaryColor,
                                                 ),
                                               ),
@@ -159,7 +167,7 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                               onPressed: () {
                                                 AppRouter.navigateToWidget(
                                                   BookingPage(
-                                                    patient: provider.patient!,
+                                                    patient: fireStore.patient!,
                                                     doctor:
                                                         filteredPatientAppointments[index]!
                                                             .doctor,
@@ -169,9 +177,9 @@ class _AppointmentPageState extends State<AppointmentPage> {
                                                   ),
                                                 );
                                               },
-                                              child: const Text(
-                                                'Reschedule',
-                                                style: TextStyle(
+                                              child: Text(
+                                                localizations.reschedule,
+                                                style: const TextStyle(
                                                   color: Colors.white,
                                                 ),
                                               ),
@@ -209,38 +217,47 @@ class ScheduleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey.shade200,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          const Icon(
-            Icons.calendar_today,
-            color: Config.primaryColor,
-            size: 15,
+    final localizations = AppLocalizations.of(context)!;
+    return Consumer<LanguageProvider>(
+      builder: (context, lang, child) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.grey.shade200,
+            borderRadius: BorderRadius.circular(10),
           ),
-          const SizedBox(width: 5),
-          Text(
-            '$day, $date',
-            style: const TextStyle(color: Config.primaryColor),
+          width: double.infinity,
+          padding: const EdgeInsets.all(20),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              const Icon(
+                Icons.calendar_today,
+                color: Config.primaryColor,
+                size: 15,
+              ),
+              const SizedBox(width: 5),
+              Text(
+                '${lang.getDayLocalization(day, localizations)}, $date',
+                style: const TextStyle(color: Config.primaryColor),
+              ),
+              const SizedBox(width: 20),
+              const Icon(
+                Icons.access_alarm,
+                color: Config.primaryColor,
+                size: 17,
+              ),
+              const SizedBox(width: 5),
+              Flexible(
+                child: Text(
+                  lang.getTimeLocalization(time, localizations),
+                  style: const TextStyle(color: Config.primaryColor),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(width: 20),
-          const Icon(Icons.access_alarm, color: Config.primaryColor, size: 17),
-          const SizedBox(width: 5),
-          Flexible(
-            child: Text(
-              time,
-              style: const TextStyle(color: Config.primaryColor),
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

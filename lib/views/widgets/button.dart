@@ -1,4 +1,5 @@
 import 'package:final_project/providers/auth_provider.dart';
+import 'package:final_project/providers/firestore_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -20,8 +21,8 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppAuthProvider>(
-      builder: (context, auth, child) {
+    return Consumer2<AppAuthProvider, FireStoreProvider>(
+      builder: (context, auth, fireStore, child) {
         return SizedBox(
           width: width,
           child: ElevatedButton(
@@ -30,7 +31,7 @@ class Button extends StatelessWidget {
               foregroundColor: Colors.white,
             ),
             onPressed: disable ? null : onPressed,
-            child: auth.isLoading
+            child: auth.isLoading || fireStore.isLoading
                 ? SizedBox(
                     width: 20,
                     height: 20,

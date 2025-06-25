@@ -1,6 +1,6 @@
 import 'package:final_project/models/appointment.dart';
 import 'package:final_project/utils/config.dart';
-import 'package:final_project/views/widgets/appointment_card.dart';
+import 'package:final_project/views/widgets/appointment/appointment_card.dart';
 import 'package:intl/intl.dart';
 
 class AppointmentToday {

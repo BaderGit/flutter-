@@ -1,5 +1,7 @@
+import 'package:final_project/l10n/app_localizations.dart';
 import 'package:final_project/providers/auth_provider.dart';
 import 'package:final_project/providers/firestore_provider.dart';
+import 'package:final_project/providers/language_provider.dart';
 import 'package:final_project/utils/config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +16,8 @@ class DoctorProfilePage extends StatefulWidget {
 class _DoctorProfilePageState extends State<DoctorProfilePage> {
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     return Consumer<FireStoreProvider>(
       builder: (context, fireStore, child) {
         return fireStore.doctor == null
@@ -57,49 +61,33 @@ class _DoctorProfilePageState extends State<DoctorProfilePage> {
                               padding: const EdgeInsets.all(10),
                               child: Column(
                                 children: [
-                                  const Text(
-                                    'Profile',
+                                  Text(
+                                    localizations.profile,
                                     style: TextStyle(
                                       fontSize: 17,
                                       fontWeight: FontWeight.w800,
                                     ),
                                   ),
                                   Divider(color: Colors.grey[300]),
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Icon(
-                                        Icons.person,
-                                        color: Colors.blueAccent[400],
-                                        size: 35,
-                                      ),
-                                      const SizedBox(width: 20),
-                                      TextButton(
-                                        onPressed: () {},
-                                        child: const Text(
-                                          "Profile",
-                                          style: TextStyle(
-                                            color: Config.primaryColor,
-                                            fontSize: 15,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
                                   Config.spaceSmall,
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Icon(
-                                        Icons.history,
+                                        Icons.language,
                                         color: Colors.yellowAccent[400],
                                         size: 35,
                                       ),
                                       const SizedBox(width: 20),
                                       TextButton(
-                                        onPressed: () {},
-                                        child: const Text(
-                                          "History",
+                                        onPressed: () {
+                                          Provider.of<LanguageProvider>(
+                                            context,
+                                            listen: false,
+                                          ).toggleLanguage();
+                                        },
+                                        child: Text(
+                                          localizations.changeLanguage,
                                           style: TextStyle(
                                             color: Config.primaryColor,
                                             fontSize: 15,
@@ -125,8 +113,8 @@ class _DoctorProfilePageState extends State<DoctorProfilePage> {
                                             listen: false,
                                           ).signOut();
                                         },
-                                        child: const Text(
-                                          "Logout",
+                                        child: Text(
+                                          localizations.logout,
                                           style: TextStyle(
                                             color: Config.primaryColor,
                                             fontSize: 15,

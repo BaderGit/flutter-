@@ -1,11 +1,11 @@
+import 'package:final_project/l10n/app_localizations.dart';
 import 'package:final_project/models/appointment.dart';
 import 'package:final_project/models/booking_datetime_converted.dart';
 import 'package:final_project/models/doctor.dart';
 import 'package:final_project/models/patient.dart';
 import 'package:final_project/providers/firestore_provider.dart';
 import 'package:final_project/utils/config.dart';
-import 'package:final_project/utils/custom_dialog.dart';
-import 'package:final_project/utils/local_notification.dart';
+
 import 'package:final_project/views/widgets/button.dart';
 import 'package:final_project/views/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
@@ -35,14 +35,13 @@ class BookingPage extends StatefulWidget {
 
 class _BookingPageState extends State<BookingPage> {
   CalendarFormat _format = CalendarFormat.month;
-  late DateTime _focusDay; // سيتم تهيئتها في initState
+  late DateTime _focusDay;
   late DateTime _currentDay;
   int? _currentIndex;
   bool _isWeekend = false;
   bool _dateSelected = false;
   bool _timeSelected = false;
-
-  late DateTime _lastDay; // سيتم تهيئتها في initState
+  late DateTime _lastDay;
 
   @override
   void initState() {
@@ -56,12 +55,13 @@ class _BookingPageState extends State<BookingPage> {
   @override
   Widget build(BuildContext context) {
     Config().init(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Consumer<FireStoreProvider>(
       builder: (context, provider, child) {
         return Scaffold(
           appBar: CustomAppBar(
-            appTitle: 'Appointment',
+            appTitle: localizations.appointmentTitle,
             icon: const FaIcon(Icons.arrow_back_ios),
           ),
           body: CustomScrollView(
@@ -70,14 +70,14 @@ class _BookingPageState extends State<BookingPage> {
                 child: Column(
                   children: <Widget>[
                     _tableCalendar(),
-                    const Padding(
+                    Padding(
                       padding: EdgeInsets.symmetric(
                         horizontal: 10,
                         vertical: 25,
                       ),
                       child: Center(
                         child: Text(
-                          'Select Consultation Time',
+                          localizations.selectConsultationTime,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 20,
@@ -96,9 +96,9 @@ class _BookingPageState extends State<BookingPage> {
                           vertical: 30,
                         ),
                         alignment: Alignment.center,
-                        child: const Text(
-                          'Weekend is not available, please select another date',
-                          style: TextStyle(
+                        child: Text(
+                          localizations.weekendNotAvailable,
+                          style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                             color: Colors.grey,
@@ -131,7 +131,7 @@ class _BookingPageState extends State<BookingPage> {
                             ),
                             alignment: Alignment.center,
                             child: Text(
-                              '${index + 9}:00 ${index + 9 > 11 ? "PM" : "AM"}',
+                              '${index + 9}:00 ${index + 9 > 11 ? localizations.timePm : localizations.timeAm}',
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 color: _currentIndex == index
@@ -157,8 +157,8 @@ class _BookingPageState extends State<BookingPage> {
                   child: Button(
                     width: double.infinity,
                     title: widget.isReschedule
-                        ? 'Update Appointment'
-                        : 'Make Appointment',
+                        ? localizations.updateAppointment
+                        : localizations.makeAppointment,
                     onPressed: () async {
                       if (widget.isReschedule) {
                         final getDate = DateConverted.getDate(_currentDay);
@@ -174,17 +174,15 @@ class _BookingPageState extends State<BookingPage> {
                               day: getDay,
                               time: getTime,
                             );
-                        await provider.updateAppointment(updatedAppointment);
+                        await provider.updateAppointment(
+                          updatedAppointment,
+                          localizations.appointmentUpdatedSuccessfully(
+                            widget.doctor.name,
+                          ),
+                          localizations,
+                        );
                         await provider.updateStoredAppointment(
                           updatedAppointment,
-                        );
-                        LocalNotification.localNotification.getRightTime(
-                          updatedAppointment,
-                        );
-                        // provider.getTodaysAppointment();
-
-                        CustomShowDialog.showDialogFunction(
-                          "Your appointment with ${widget.doctor.name} has been updated successfully.",
                         );
                       } else {
                         final getDate = DateConverted.getDate(_currentDay);
@@ -203,16 +201,15 @@ class _BookingPageState extends State<BookingPage> {
                           day: getDay,
                         );
 
-                        await provider.addAppointment(newAppointmentModel);
-                        await provider.storeAppointment(newAppointmentModel);
-                        LocalNotification.localNotification.getRightTime(
+                        await provider.addAppointment(
                           newAppointmentModel,
+                          localizations.appointmentScheduledSuccessfully(
+                            widget.doctor.name,
+                          ),
+                          localizations.bookingFailed,
+                          localizations,
                         );
-                        // provider.getTodaysAppointment();
-
-                        CustomShowDialog.showDialogFunction(
-                          "Your appointment with ${widget.doctor.name} has been scheduled successfully.",
-                        );
+                        await provider.storeAppointment(newAppointmentModel);
                       }
                     },
                     disable: _timeSelected && _dateSelected ? false : true,
@@ -230,7 +227,7 @@ class _BookingPageState extends State<BookingPage> {
     return TableCalendar(
       focusedDay: _focusDay,
       firstDay: DateTime.now(),
-      lastDay: _lastDay, // استخدام المتغير الذي تم تعريفه
+      lastDay: _lastDay,
       calendarFormat: _format,
       currentDay: _currentDay,
       rowHeight: 48,

@@ -5,6 +5,7 @@ import 'package:final_project/data/auth_helper.dart';
 import 'package:final_project/data/firestore_helper.dart';
 import 'package:final_project/data/sp_helper.dart';
 import 'package:final_project/data/storage_helper.dart';
+import 'package:final_project/l10n/app_localizations.dart';
 import 'package:final_project/main_layout.dart';
 import 'package:final_project/models/patient.dart';
 import 'package:final_project/models/doctor.dart';
@@ -26,45 +27,48 @@ class AppAuthProvider extends ChangeNotifier {
   String? userType;
   GlobalKey<FormState> loginKey = GlobalKey();
   GlobalKey<FormState> signUpKey = GlobalKey();
+  GlobalKey<FormState> forgetPassUpKey = GlobalKey();
 
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController userNameController = TextEditingController();
   TextEditingController ageController = TextEditingController();
-  TextEditingController genderController = TextEditingController();
+
+  String selectedGender = "male";
   TextEditingController imgUrlController = TextEditingController();
 
   TextEditingController doctorEmailController = TextEditingController();
   TextEditingController doctorPasswordController = TextEditingController();
   TextEditingController doctorUserNameController = TextEditingController();
-  // TextEditingController doctorSpecialityController = TextEditingController();
+
   TextEditingController doctorImgUrlController = TextEditingController();
+  TextEditingController forgetPasswordEmailController = TextEditingController();
   String? selectedSpeciality;
 
   File? selectedImage;
   bool isLoading = false;
 
-  nullValidation(String? value) {
+  nullValidation(String? value, AppLocalizations localization) {
     if (value == null || value.isEmpty) {
-      return 'this field is required';
+      return localization.nullValidation;
     }
   }
 
-  emailValidation(String? value) {
-    nullValidation(value);
+  emailValidation(String? value, AppLocalizations localization) {
+    nullValidation(value, localization);
     if (!isEmail(value!)) {
-      return "incorrect email form";
+      return localization.emailValidation;
     }
   }
 
-  passwordValidation(String? value) {
-    nullValidation(value);
+  passwordValidation(String? value, AppLocalizations localization) {
+    nullValidation(value, localization);
     if (value!.length < 6) {
-      return "password must be 6 digits ";
+      return localization.passwordValidation;
     }
   }
 
-  Future<UserCredential?> signIn() async {
+  Future<UserCredential?> signIn(AppLocalizations localization) async {
     try {
       if (loginKey.currentState!.validate()) {
         isLoading = true;
@@ -74,6 +78,7 @@ class AppAuthProvider extends ChangeNotifier {
               .signIn(
                 doctorEmailController.text,
                 doctorPasswordController.text,
+                localization,
               );
 
           if (doctorCredentials != null) {
@@ -89,7 +94,8 @@ class AppAuthProvider extends ChangeNotifier {
             AppRouter.navigateToWidgetWithReplacment(UserTypeScreen());
 
             CustomShowDialog.showDialogFunction(
-              "please select the right user type",
+              localization.rightUserTypeValidation,
+              localization,
             );
             // doctorEmailController.clear();
             // doctorPasswordController.clear();
@@ -105,6 +111,7 @@ class AppAuthProvider extends ChangeNotifier {
           UserCredential? credentials = await AuthHelper.authHelper.signIn(
             emailController.text,
             passwordController.text,
+            localization,
           );
 
           if (credentials != null) {
@@ -119,7 +126,8 @@ class AppAuthProvider extends ChangeNotifier {
                 AppRouter.navigateToWidgetWithReplacment(UserTypeScreen());
 
                 CustomShowDialog.showDialogFunction(
-                  "please select the right user type",
+                  localization.rightUserTypeValidation,
+                  localization,
                 );
               }
             } else if (userType == "staff") {
@@ -133,21 +141,13 @@ class AppAuthProvider extends ChangeNotifier {
                 AppRouter.navigateToWidgetWithReplacment(UserTypeScreen());
 
                 CustomShowDialog.showDialogFunction(
-                  "please select the right user type",
+                  localization.rightUserTypeValidation,
+                  localization,
                 );
                 return null;
               }
             }
           }
-          // isLoading = false;
-          // emailController.clear();
-          // passwordController.clear();
-          // notifyListeners();
-
-          // emailController.clear();
-
-          // isLoading = false;
-          // notifyListeners();
         }
       }
     } catch (e) {
@@ -204,12 +204,15 @@ class AppAuthProvider extends ChangeNotifier {
     emailController.text = "";
   }
 
-  Future<UserCredential?> userSignUp() async {
+  Future<UserCredential?> userSignUp(AppLocalizations localization) async {
     try {
       isLoading = true;
       notifyListeners();
       if (selectedImage == null) {
-        CustomShowDialog.showDialogFunction("please enter a profile picture");
+        CustomShowDialog.showDialogFunction(
+          localization.pictureValidation,
+          localization,
+        );
         isLoading = false;
         notifyListeners();
         return null;
@@ -218,6 +221,7 @@ class AppAuthProvider extends ChangeNotifier {
         UserCredential? credentials = await AuthHelper.authHelper.signUp(
           emailController.text,
           passwordController.text,
+          localization,
         );
 
         if (credentials != null) {
@@ -229,7 +233,7 @@ class AppAuthProvider extends ChangeNotifier {
             email: emailController.text,
             name: userNameController.text,
             age: ageController.text,
-            gender: genderController.text,
+            gender: selectedGender,
             imgUrl: imageUrl ?? "",
             isDoc: false,
           );
@@ -240,7 +244,7 @@ class AppAuthProvider extends ChangeNotifier {
           emailController.clear();
           userNameController.clear();
           ageController.clear();
-          genderController.clear();
+
           passwordController.clear();
           selectedImage = null;
 
@@ -257,7 +261,7 @@ class AppAuthProvider extends ChangeNotifier {
     return null;
   }
 
-  Future<UserCredential?> doctorSignUp() async {
+  Future<UserCredential?> doctorSignUp(AppLocalizations localization) async {
     try {
       if (signUpKey.currentState!.validate()) {
         isLoading = true;
@@ -265,6 +269,7 @@ class AppAuthProvider extends ChangeNotifier {
         UserCredential? credentials = await AuthHelper.authHelper.signUp(
           doctorEmailController.text,
           doctorPasswordController.text,
+          localization,
         );
         if (credentials != null) {
           DoctorModel doctor = DoctorModel(
@@ -275,7 +280,10 @@ class AppAuthProvider extends ChangeNotifier {
             isDoc: true,
           );
           await FireStoreHelper.fireStoreHelper.addDoctorToFireStore(doctor);
-          CustomShowDialog.showDialogFunction("successfully added doctor");
+          CustomShowDialog.showDialogFunction(
+            localization.doctorAddSuccess,
+            localization,
+          );
           isLoading = false;
           doctorEmailController.clear();
           doctorUserNameController.clear();
@@ -296,8 +304,22 @@ class AppAuthProvider extends ChangeNotifier {
     return null;
   }
 
-  forgetPassword() {
-    AuthHelper.authHelper.forgetPassword(emailController.text);
+  forgetPassword(AppLocalizations localization) async {
+    if (forgetPassUpKey.currentState!.validate()) {
+      isLoading = true;
+      notifyListeners();
+      await AuthHelper.authHelper.forgetPassword(
+        forgetPasswordEmailController.text,
+        localization,
+      );
+      CustomShowDialog.showDialogFunction(
+        localization.resetPasswordRequest,
+        localization,
+      );
+      forgetPasswordEmailController.clear();
+      isLoading = false;
+      notifyListeners();
+    }
   }
 
   Future<void> pickImage() async {

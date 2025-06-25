@@ -53,6 +53,9 @@ class FireStoreHelper {
     try {
       DocumentSnapshot<Map<String, dynamic>> documentSnapShot =
           await appointmentCollection.doc(id).get();
+      if (documentSnapShot.data() == null) {
+        return null;
+      }
 
       return AppointmentModel.fromMap(documentSnapShot.data()!);
     } catch (e) {

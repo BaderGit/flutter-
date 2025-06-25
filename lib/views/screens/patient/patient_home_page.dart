@@ -1,13 +1,12 @@
 import 'package:final_project/providers/firestore_provider.dart';
-
 import 'package:final_project/utils/config.dart';
-
-import 'package:final_project/views/widgets/appointment_card.dart';
+import 'package:final_project/views/widgets/appointment/appointment_card.dart';
 import 'package:final_project/views/widgets/category_card.dart';
-import 'package:final_project/views/widgets/doctor_card.dart';
+import 'package:final_project/views/widgets/doctor/doctor_card.dart';
 import 'package:flutter/material.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:final_project/l10n/app_localizations.dart';
 
 class PatientHomePage extends StatefulWidget {
   const PatientHomePage({super.key});
@@ -20,11 +19,37 @@ class _PatientHomePageState extends State<PatientHomePage> {
   @override
   Widget build(BuildContext context) {
     Config().init(context);
+    final localizations = AppLocalizations.of(context)!;
+    List<Map<String, dynamic>> medCat = [
+      {
+        "icon": FontAwesomeIcons.userDoctor,
+        "category": AppLocalizations.of(context)!.general,
+      },
+      {
+        "icon": FontAwesomeIcons.heartPulse,
+        "category": AppLocalizations.of(context)!.cardiology,
+      },
+      {
+        "icon": FontAwesomeIcons.lungs,
+        "category": AppLocalizations.of(context)!.respirations,
+      },
+      {
+        "icon": FontAwesomeIcons.hand,
+        "category": AppLocalizations.of(context)!.dermatology,
+      },
+      {
+        "icon": FontAwesomeIcons.personPregnant,
+        "category": AppLocalizations.of(context)!.gynecology,
+      },
+      {
+        "icon": FontAwesomeIcons.teeth,
+        "category": AppLocalizations.of(context)!.dental,
+      },
+    ];
 
     return Consumer<FireStoreProvider>(
       builder: (context, provider, child) {
         return Scaffold(
-          //if user is empty, then return progress indicator
           body: provider.patient == null
               ? const Center(child: CircularProgressIndicator())
               : Padding(
@@ -42,7 +67,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: <Widget>[
                               Text(
-                                "Welcome ${provider.patient!.name}",
+                                "${localizations.welcome} ${provider.patient!.name}",
                                 style: const TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
@@ -59,9 +84,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                             ],
                           ),
                           Config.spaceSmall,
-                          const Text(
-                            'Appointment Today',
-                            style: TextStyle(
+                          Text(
+                            localizations.appointmentToday,
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
@@ -82,12 +107,12 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     color: Colors.grey.shade300,
                                     borderRadius: BorderRadius.circular(10),
                                   ),
-                                  child: const Center(
+                                  child: Center(
                                     child: Padding(
-                                      padding: EdgeInsets.all(20),
+                                      padding: const EdgeInsets.all(20),
                                       child: Text(
-                                        'No Appointment Today',
-                                        style: TextStyle(
+                                        localizations.noAppointmentToday,
+                                        style: const TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w600,
                                         ),
@@ -96,9 +121,9 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                   ),
                                 ),
                           Config.spaceSmall,
-                          const Text(
-                            'Category',
-                            style: TextStyle(
+                          Text(
+                            localizations.category,
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
@@ -108,37 +133,33 @@ class _PatientHomePageState extends State<PatientHomePage> {
                             height: Config.heightSize * 0.05,
                             child: ListView(
                               scrollDirection: Axis.horizontal,
-                              children: List<Widget>.generate(
-                                provider.medCat.length,
-                                (index) {
-                                  return GestureDetector(
-                                    onTap: () {
-                                      provider.updateCurrentDoctors(
-                                        provider.medCat[index]["category"],
-                                      );
-                                    },
-                                    child: CategoryCard(
-                                      catName:
-                                          provider.medCat[index]["category"],
-                                      catIcon: provider.medCat[index]["icon"],
-                                      currentCat: provider.currentCat,
-                                    ),
-                                  );
-                                },
-                              ),
+                              children: List<Widget>.generate(medCat.length, (
+                                index,
+                              ) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    provider.updateCurrentDoctors(
+                                      medCat[index]["category"],
+                                    );
+                                  },
+                                  child: CategoryCard(
+                                    catName: medCat[index]["category"],
+                                    catIcon: medCat[index]["icon"],
+                                    currentCat: provider.currentCat,
+                                  ),
+                                );
+                              }),
                             ),
                           ),
                           Config.spaceSmall,
-
-                          const Text(
-                            'Top Doctors',
-                            style: TextStyle(
+                          Text(
+                            localizations.topDoctors,
+                            style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
                           Config.spaceSmall,
-
                           Column(
                             children:
                                 provider.filteredDoctors.isEmpty &&
@@ -150,7 +171,7 @@ class _PatientHomePageState extends State<PatientHomePage> {
                                     ),
                                   )
                                 : provider.filteredDoctors.isEmpty
-                                ? [Text("no doctores")]
+                                ? [Text(localizations.noDoctorsAvailable)]
                                 : List.generate(
                                     provider.filteredDoctors.length,
                                     (index) => DoctorCard(

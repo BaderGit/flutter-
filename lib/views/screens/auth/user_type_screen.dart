@@ -3,7 +3,7 @@ import 'package:final_project/providers/auth_provider.dart';
 import 'package:final_project/providers/language_provider.dart';
 import 'package:final_project/utils/app_router.dart';
 import 'package:final_project/utils/config.dart';
-import 'package:final_project/utils/text.dart';
+import 'package:final_project/l10n/app_localizations.dart';
 import 'package:final_project/views/screens/auth/auth_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,8 +16,7 @@ class UserTypeScreen extends StatefulWidget {
 }
 
 class _UserTypeScreenState extends State<UserTypeScreen> {
-  String?
-  selectedUserType; // 'patient', 'doctor', 'staff' (null when nothing selected)
+  String? selectedUserType;
 
   void _handleUserTypeChange(String? type) {
     setState(() {
@@ -26,10 +25,12 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
   }
 
   void _navigateBasedOnUserType(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     if (selectedUserType == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please select your user type')),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(localizations.selectTypeError)));
       return;
     }
 
@@ -42,6 +43,8 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
   @override
   Widget build(BuildContext context) {
     Config().init(context);
+    final localizations = AppLocalizations.of(context)!;
+    final languageProvider = Provider.of<LanguageProvider>(context);
 
     return Scaffold(
       resizeToAvoidBottomInset: true,
@@ -54,7 +57,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
             children: <Widget>[
               // Welcome text
               Text(
-                AppText.enText['welcome_text']!,
+                localizations.welcomeText,
                 style: const TextStyle(
                   fontSize: 36,
                   fontWeight: FontWeight.bold,
@@ -63,16 +66,19 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
               Config.spaceSmall,
 
               // User type selection
-              const Text(
-                'Select your user type:',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              Text(
+                localizations.selectUserType,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               Config.spaceSmall,
 
               // Patient Radio Button
               RadioListTile<String>(
                 activeColor: Config.primaryColor,
-                title: const Text('Patient'),
+                title: Text(localizations.patient),
                 value: 'patient',
                 groupValue: selectedUserType,
                 onChanged: _handleUserTypeChange,
@@ -81,7 +87,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
               // Doctor Radio Button
               RadioListTile<String>(
                 activeColor: Config.primaryColor,
-                title: const Text('Doctor'),
+                title: Text(localizations.doctor),
                 value: 'doctor',
                 groupValue: selectedUserType,
                 onChanged: _handleUserTypeChange,
@@ -90,7 +96,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
               // Staff Radio Button
               RadioListTile<String>(
                 activeColor: Config.primaryColor,
-                title: const Text('Staff'),
+                title: Text(localizations.staff),
                 value: 'staff',
                 groupValue: selectedUserType,
                 onChanged: _handleUserTypeChange,
@@ -106,9 +112,8 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                     backgroundColor: Config.primaryColor,
                     foregroundColor: Colors.white,
                   ),
-
                   onPressed: () => _navigateBasedOnUserType(context),
-                  child: const Text('Continue'),
+                  child: Text(localizations.continueText),
                 ),
               ),
               Config.spaceSmall,
@@ -116,7 +121,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                 child: TextButton(
                   style: ButtonStyle(),
                   child: Text(
-                    "change language",
+                    localizations.changeLanguage,
                     style: TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -124,10 +129,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                     ),
                   ),
                   onPressed: () {
-                    Provider.of<LanguageProvider>(
-                      context,
-                      listen: false,
-                    ).toggleLanguage();
+                    languageProvider.toggleLanguage();
                   },
                 ),
               ),

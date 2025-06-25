@@ -11,10 +11,23 @@ class SpHelper {
     prefs.setString('userType', userType);
   }
 
+  Future<void> setLanguage(String locale) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('currentLocale', locale);
+  }
+
   Future<String?> getUserType() async {
     final SharedPreferences pref = await SharedPreferences.getInstance();
     String? userType;
     userType = pref.getString('userType');
     return userType;
+  }
+
+  Future<String?> getLanguage() async {
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+    String? currentLocale;
+    currentLocale = pref.getString('currentLocale');
+
+    return currentLocale;
   }
 }

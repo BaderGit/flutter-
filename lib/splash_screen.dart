@@ -7,9 +7,12 @@ import 'package:provider/provider.dart';
 class SplashScreen extends StatelessWidget {
   navigateFun(BuildContext context) async {
     String? userType = await SpHelper.spHelper.getUserType();
+
     await Future.delayed(Duration(seconds: 3));
+    // ignore: use_build_context_synchronously
     Provider.of<AppAuthProvider>(context, listen: false).userType = userType;
 
+    // ignore: use_build_context_synchronously
     Provider.of<AppAuthProvider>(context, listen: false).checkUser(userType);
   }
 

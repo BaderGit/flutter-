@@ -1,4 +1,6 @@
+import 'package:final_project/l10n/app_localizations.dart';
 import 'package:final_project/providers/firestore_provider.dart';
+import 'package:final_project/providers/language_provider.dart';
 import 'package:final_project/utils/config.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,10 +20,12 @@ class _HistoryPageState extends State<HistoryPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FireStoreProvider>(
-      builder: (context, provider, child) {
-        var filteredPatientStoredAppointments = provider.allStoredAppointments
-            .where((app) => app!.patient.id == provider.patient!.id)
+    final localizations = AppLocalizations.of(context)!;
+
+    return Consumer2<FireStoreProvider, LanguageProvider>(
+      builder: (context, fireStore, lang, child) {
+        var filteredPatientStoredAppointments = fireStore.allStoredAppointments
+            .where((app) => app!.patient.id == fireStore.patient!.id)
             .toList();
         return Scaffold(
           body: SafeArea(
@@ -30,13 +34,16 @@ class _HistoryPageState extends State<HistoryPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  const Text(
-                    'History',
+                  Text(
+                    localizations.historyTitle,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Config.spaceSmall,
-                  provider.allStoredAppointments.isEmpty
+                  fireStore.allStoredAppointments.isEmpty
                       ? Expanded(
                           child: Center(
                             child: Column(
@@ -49,7 +56,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                 ),
                                 const SizedBox(height: 20),
                                 Text(
-                                  'No Appointments Found',
+                                  localizations.noAppointmentsFound,
                                   style: TextStyle(
                                     fontSize: 18,
                                     color: Colors.grey.withAlpha(178),
@@ -58,7 +65,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                 ),
                                 const SizedBox(height: 10),
                                 Text(
-                                  'Your appointment history will appear here',
+                                  localizations.appointmentHistoryHint,
                                   style: TextStyle(
                                     fontSize: 14,
                                     color: Colors.grey.withAlpha(128),
@@ -107,9 +114,13 @@ class _HistoryPageState extends State<HistoryPage> {
                                               ),
                                               const SizedBox(height: 5),
                                               Text(
-                                                filteredPatientStoredAppointments[index]!
-                                                    .doctor
-                                                    .speciality,
+                                                lang.getSpecialityLocalization(
+                                                  filteredPatientStoredAppointments[index]!
+                                                      .doctor
+                                                      .speciality,
+                                                  localizations,
+                                                ),
+
                                                 style: const TextStyle(
                                                   color: Colors.grey,
                                                   fontSize: 12,
@@ -135,14 +146,14 @@ class _HistoryPageState extends State<HistoryPage> {
                                       const SizedBox(height: 15),
                                       OutlinedButton(
                                         onPressed: () {
-                                          provider.deleteStoredAppointment(
+                                          fireStore.deleteStoredAppointment(
                                             filteredPatientStoredAppointments[index]!
                                                 .id!,
                                           );
                                         },
-                                        child: const Text(
-                                          'Delete',
-                                          style: TextStyle(
+                                        child: Text(
+                                          localizations.deleteButton,
+                                          style: const TextStyle(
                                             color: Config.primaryColor,
                                           ),
                                         ),
@@ -177,38 +188,47 @@ class ScheduleCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.grey.shade200,
-        borderRadius: BorderRadius.circular(10),
-      ),
-      width: double.infinity,
-      padding: const EdgeInsets.all(20),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          const Icon(
-            Icons.calendar_today,
-            color: Config.primaryColor,
-            size: 15,
+    final localizations = AppLocalizations.of(context)!;
+    return Consumer<LanguageProvider>(
+      builder: (context, lang, child) {
+        return Container(
+          decoration: BoxDecoration(
+            color: Colors.grey.shade200,
+            borderRadius: BorderRadius.circular(10),
           ),
-          const SizedBox(width: 5),
-          Text(
-            '$day, $date',
-            style: const TextStyle(color: Config.primaryColor),
+          width: double.infinity,
+          padding: const EdgeInsets.all(20),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              const Icon(
+                Icons.calendar_today,
+                color: Config.primaryColor,
+                size: 15,
+              ),
+              const SizedBox(width: 5),
+              Text(
+                '${lang.getDayLocalization(day, localizations)}, $date',
+                style: const TextStyle(color: Config.primaryColor),
+              ),
+              const SizedBox(width: 20),
+              const Icon(
+                Icons.access_alarm,
+                color: Config.primaryColor,
+                size: 17,
+              ),
+              const SizedBox(width: 5),
+              Flexible(
+                child: Text(
+                  lang.getTimeLocalization(time, localizations),
+                  style: const TextStyle(color: Config.primaryColor),
+                ),
+              ),
+            ],
           ),
-          const SizedBox(width: 20),
-          const Icon(Icons.access_alarm, color: Config.primaryColor, size: 17),
-          const SizedBox(width: 5),
-          Flexible(
-            child: Text(
-              time,
-              style: const TextStyle(color: Config.primaryColor),
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

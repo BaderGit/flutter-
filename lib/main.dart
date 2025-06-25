@@ -1,5 +1,6 @@
 // ignore: depend_on_referenced_packages
 import 'package:final_project/providers/language_provider.dart';
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:final_project/firebase_options.dart';
@@ -19,6 +20,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  // await FirebaseAppCheck.instance.activate(
+  //   androidProvider: AndroidProvider.debug,
+  //   appleProvider: AppleProvider.debug,
+  // );
   await LocalNotification.localNotification.init();
 
   runApp(
@@ -47,7 +52,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  Locale locale = const Locale('en');
   @override
   Widget build(BuildContext context) {
     return Consumer<LanguageProvider>(

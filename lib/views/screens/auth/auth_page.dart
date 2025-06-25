@@ -1,16 +1,12 @@
 import 'package:final_project/providers/auth_provider.dart';
-
 import 'package:final_project/providers/language_provider.dart';
 import 'package:final_project/utils/app_router.dart';
 import 'package:final_project/utils/config.dart';
-import 'package:final_project/utils/text.dart';
-
-import 'package:final_project/views/widgets/login_form.dart';
-import 'package:final_project/views/widgets/sign_up_form.dart';
-
+import 'package:final_project/views/screens/auth/forgot_password_screen.dart';
+import 'package:final_project/views/widgets/auth/login_form.dart';
+import 'package:final_project/views/widgets/auth/sign_up_form.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../../../l10n/app_localizations.dart';
 
 class AuthPage extends StatefulWidget {
@@ -26,20 +22,15 @@ class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     Config().init(context);
+    final localizations = AppLocalizations.of(context)!;
 
     return Consumer<AppAuthProvider>(
       builder: (context, auth, child) {
-        // fireStore.getAllDoctors();
-        // log(
-        //   "this is the doctors list length" +
-        //       fireStore.allDoctors.length.toString(),
-        // );
-
         return Scaffold(
           resizeToAvoidBottomInset: true,
           body: SafeArea(
             child: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,34 +41,25 @@ class _AuthPageState extends State<AuthPage> {
                     children: [
                       Text(
                         auth.userType == "patient"
-                            ? AppLocalizations.of(context)!.welcome
+                            ? localizations.welcomePatient
                             : auth.userType == "doctor"
-                            ? AppLocalizations.of(context)!.welcome
-                            : AppLocalizations.of(context)!.welcome,
+                            ? localizations.welcomeDoctor
+                            : localizations.welcomeAdmin,
                         style: const TextStyle(
-                          fontSize: 36,
+                          fontSize: 30,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-
                       Expanded(
                         child: Row(
                           children: [
-                            // IconButton(
-                            //   onPressed: () {
-                            //     Provider.of<LanguageProvider>(
-                            //       context,
-                            //       listen: false,
-                            //     ).toggleLanguage();
-                            //   },
-                            //   icon: Icon(Icons.language),
-                            // ),
-                            Expanded(child: SizedBox()),
+                            const Expanded(child: SizedBox()),
                             IconButton(
                               onPressed: () {
                                 AppRouter.popRoute();
                               },
                               icon: Icon(Icons.arrow_forward),
+                              tooltip: localizations.backButtonTooltip,
                             ),
                           ],
                         ),
@@ -89,8 +71,8 @@ class _AuthPageState extends State<AuthPage> {
                   // Sign in/up text
                   Text(
                     isSignIn
-                        ? AppText.enText['signIn_text']!
-                        : AppText.enText['register_text']!,
+                        ? localizations.signInText
+                        : localizations.registerText,
                     style: const TextStyle(
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
@@ -107,13 +89,10 @@ class _AuthPageState extends State<AuthPage> {
                     Center(
                       child: TextButton(
                         onPressed: () {
-                          Provider.of<AppAuthProvider>(
-                            context,
-                            listen: false,
-                          ).forgetPassword();
+                          AppRouter.navigateToWidget(ForgotPasswordScreen());
                         },
                         child: Text(
-                          AppText.enText['forgot-password']!,
+                          localizations.forgotPassword,
                           style: const TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -123,26 +102,6 @@ class _AuthPageState extends State<AuthPage> {
                       ),
                     ),
 
-                  // Social login text
-                  // Center(
-                  //   child: Text(
-                  //     AppText.enText['social-login']!,
-                  //     style: TextStyle(
-                  //       fontSize: 16,
-                  //       fontWeight: FontWeight.normal,
-                  //       color: Colors.grey.shade500,
-                  //     ),
-                  //   ),
-                  // ),
-                  // Config.spaceSmall,
-
-                  // Social buttons
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  //   children: const <Widget>[SocialButton(social: 'google')],
-                  // ),
-                  // Config.spaceSmall,
-
                   // Toggle between sign in/up
                   if (auth.userType == "patient")
                     Row(
@@ -150,8 +109,8 @@ class _AuthPageState extends State<AuthPage> {
                       children: <Widget>[
                         Text(
                           isSignIn
-                              ? AppText.enText['signUp_text']!
-                              : AppText.enText['registered_text']!,
+                              ? localizations.signUpPrompt
+                              : localizations.signInPrompt,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.normal,
@@ -165,7 +124,9 @@ class _AuthPageState extends State<AuthPage> {
                             });
                           },
                           child: Text(
-                            isSignIn ? 'Sign Up' : 'Sign In',
+                            isSignIn
+                                ? localizations.signUpButton
+                                : localizations.signInButton,
                             style: const TextStyle(
                               fontSize: 16,
                               fontWeight: FontWeight.bold,
@@ -179,9 +140,8 @@ class _AuthPageState extends State<AuthPage> {
 
                   Center(
                     child: TextButton(
-                      style: ButtonStyle(),
                       child: Text(
-                        "change language",
+                        localizations.changeLanguage,
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.bold,
@@ -197,7 +157,6 @@ class _AuthPageState extends State<AuthPage> {
                     ),
                   ),
 
-                  // Add some extra space at the bottom when keyboard appears
                   SizedBox(height: MediaQuery.of(context).viewInsets.bottom),
                 ],
               ),

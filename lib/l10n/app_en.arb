@@ -1,116 +1,227 @@
 {
-  "@@locale": "en",
-  "@@last_modified": "2023-11-15",
-  "appTitle": "My App",
-  
-  
-  "ok": "OK",
-  "cancel": "Cancel",
-  "save": "Save",
-  "edit": "Edit",
-  "delete": "Delete",
-  "search": "Search",
-  "settings": "Settings",
-  "profile": "Profile",
-  "home": "Home",
-  "back": "Back",
-  "next": "Next",
-  "previous": "Previous",
-  "submit": "Submit",
-  "continueButton": "Continue",
-  "skip": "Skip",
-  "done": "Done",
-  "close": "Close",
-  
-  
-  "menu": "Menu",
-  "dashboard": "Dashboard",
-  "notifications": "Notifications",
-  "messages": "Messages",
-  "favorites": "Favorites",
-  "history": "History",
-  
-  
-  "login": "Login",
-  "logout": "Logout",
-  "signup": "Sign Up",
-  "username": "Username",
-  "password": "Password",
-  "email": "Email",
+  "welcomePatient": "Welcome Patient",
+  "welcomeDoctor": "Welcome Doctor",
+  "welcomeAdmin": "Welcome Staff",
+  "signInText": "Sign in to your account",
+  "registerText": "Create an account",
   "forgotPassword": "Forgot Password?",
-  "resetPassword": "Reset Password",
-  "confirmPassword": "Confirm Password",
+  "signUpPrompt": "Don't have an account?",
+  "signInPrompt": "Already have an account?",
+  "signInButton": "Sign In",
+  "signUpButton": "Sign Up",
+  "changeLanguage": "Change language",
+  "backButtonTooltip": "Go back",
+  
+  "@welcomePatient": {
+    "description": "Welcome message for patients"
+  },
+  "@welcomeDoctor": {
+    "description": "Welcome message for doctors"
+  },
+  "@welcomeAdmin": {
+    "description": "Welcome message for admins"
+  },
+  "@signInText": {
+    "description": "Sign in heading text"
+  },
+  "@registerText": {
+    "description": "Registration heading text"
+  },
+  "@forgotPassword": {
+    "description": "Forgot password link text"
+  },
+  "@signUpPrompt": {
+    "description": "Prompt to sign up when in sign in mode"
+  },
+  "@signInPrompt": {
+    "description": "Prompt to sign in when in sign up mode"
+  },
+  
+  "@signUpButton": {
+    "description": "Sign up button text"
+  },
+  "@changeLanguage": {
+    "description": "Change language button text"
+  },
+  "@backButtonTooltip": {
+    "description": "Tooltip for back button"
+  },
+  "emailHint": "Email Address",
+  "emailLabel": "Email",
+  "passwordHint": "Password",
+  "passwordLabel": "Password",
+  
+  "showPassword": "Show password",
+  "hidePassword": "Hide password",
+
+  "@emailHint": {
+    "description": "Hint text for email input field"
+  },
+  "@emailLabel": {
+    "description": "Label text for email input field"
+  },
+  "@passwordHint": {
+    "description": "Hint text for password input field"
+  },
+  "@passwordLabel": {
+    "description": "Label text for password input field"
+  },
+  "@signInButton": {
+    "description": "Text for sign in button"
+  },
+  "@showPassword": {
+    "description": "Tooltip text for show password button"
+  },
+  "@hidePassword": {
+    "description": "Tooltip text for hide password button"
+  },
+  "uploadPhoto": "Upload photo",
+  "fullNameHint": "Full name",
+  "ageHint": "Age",
+  "genderHint": "Gender",
+ 
+  "createAccount": "Create account",
+
+  "@uploadPhoto": {
+    "description": "Tooltip for photo upload button"
+  },
+  "@fullNameHint": {
+    "description": "Hint text for full name input field"
+  },
+  "@ageHint": {
+    "description": "Hint text for age input field"
+  },
+  "@genderHint": {
+    "description": "Hint text for gender input field"
+  },
   
   
-  "firstName": "First Name",
-  "lastName": "Last Name",
-  "phoneNumber": "Phone Number",
-  "address": "Address",
-  "city": "City",
-  "country": "Country",
-  "zipCode": "Zip Code",
+  "@createAccount": {
+    "description": "Text for create account button"
+  },
+  "addNewDoctor": "Add New Doctor",
+  "logout": "Logout",
   
+  "fullNameLabel": "Full name",
+  "specialityHint": "Speciality",
+  "specialityLabel": "Speciality",
   
-  "success": "Success",
-  "error": "Error",
-  "warning": "Warning",
-  "info": "Info",
-  "loading": "Loading...",
-  "noInternet": "No Internet Connection",
-  "tryAgain": "Try Again",
-  "noResults": "No Results Found",
+
+  "@addNewDoctor": {
+    "description": "Title for adding new doctor screen"
+  },
+  "@logout": {
+    "description": "Tooltip for logout button"
+  },
   
+  "@fullNameLabel": {
+    "description": "Label text for full name input field"
+  },
+  "@specialityHint": {
+    "description": "Hint text for speciality dropdown"
+  },
+  "@specialityLabel": {
+    "description": "Label text for speciality dropdown"
+  },
+   "welcomeText": "Welcome",
+  "selectUserType": "Select your user type:",
+  "patient": "Patient",
+  "doctor": "Doctor",
+  "staff": "Staff",
+  "continueText": "Continue",
+  
+  "selectTypeError": "Please select your user type",
+  "@selectTypeError": {
+    "description": "Error message when user doesn't select a type"
+  },
+  "welcome": "Welcome",
+  "appointmentToday": "Appointment Today",
+  "noAppointmentToday": "No Appointment Today",
+  "category": "Category",
+  "topDoctors": "Top Doctors",
+  "noDoctorsAvailable": "No doctors available",
+  "yearsOld": "Years Old",
+  "profile": "Profile",
+  "appointmentSchedule": "Appointment Schedule",
+  "noAppointments": "No Appointments Scheduled",
+  "upcomingAppointments": "Your upcoming appointments will appear here",
+  "cancel": "Cancel",
+  "reschedule": "Reschedule",
+  "historyTitle": "History",
+  "noAppointmentsFound": "No Appointments Found",
+  "appointmentHistoryHint": "Your appointment history will appear here",
+  "deleteButton": "Delete",
+  "appointmentTitle": "Appointment",
+  "selectConsultationTime": "Select Consultation Time",
+  "weekendNotAvailable": "Weekend is not available, please select another date",
+  "timeAm": "AM",
+  "timePm": "PM",
+  "updateAppointment": "Update Appointment",
+  "makeAppointment": "Make Appointment",
+  "appointmentUpdatedSuccessfully": "Your appointment with {doctorName} has been updated successfully.",
+  "appointmentScheduledSuccessfully": "Your appointment with {doctorName} has been scheduled successfully.",
+  
+    "general": "General",
+    "cardiology": "Cardiology",
+    "respirations": "Respirations",
+    "dermatology": "Dermatology",
+    "gynecology": "Gynecology",
+    "dental": "Dental",
+    "doctorDetailsTitle": "Doctor Details",
+  "bookAppointment": "Book Appointment",
+  "doctorNameTitle": "Dr {name}",
+  "doctorQualifications": "MBBS (International Medical University, Malaysia), MRCP (Royal College of Physicians, United Kingdom)",
+  "hospitalName1": "Sarawak General Hospital",
+  "hospitalName2": "Royal Cardiac Center",
+  "hospitalName3": "National Respiratory Institute",
+  "hospitalName4": "Harmony General Hospital",
+  "aboutDoctorTitle": "About Doctor",
+  "doctorDescription": "Dr. {name} is an experienced {speciality} Specialist previously worked at {hostpitalName}, Combining medical expertise with a warm, approachable personality.and Bringing kindness, experience, and dedication to every visit.",
+  "patientsLabel": "Patients",
+  "experienceLabel": "Experiences",
+  "yearsOfExperience": "{years} years",
+  "ratingLabel": "Rating",
+  "monday": "Monday",
+  "tuesday": "Tuesday",
+  "wednesday": "Wednesday",
+  "thursday": "Thursday",
+  "friday": "Friday",
+  "saturday": "Saturday",
+  "sunday": "Sunday",
+  "time_9am": "9:00 AM",
+  "time_10am": "10:00 AM",
+  "time_11am": "11:00 AM",
+  "time_12pm": "12:00 PM",
+  "time_1pm": "13:00 PM",
+  "time_2pm": "14:00 PM",
+  "time_3pm": "15:00 PM",
+  "time_4pm": "16:00 PM",
+  
+  "home": "Home",
+  "history": "History",
+  "appointments": "Appointments",
+  
+
   
   "today": "Today",
-  "yesterday": "Yesterday",
   "tomorrow": "Tomorrow",
-  "day": "Day",
-  "week": "Week",
-  "month": "Month",
-  "year": "Year",
+  "male":"male",
+  "female":"female",
+  "markCompleted": "Completed",
+  "bookingFailed":"Unavailable Appointment",
+  "emailValidation":"Incorrect email form",
+  "passwordValidation":"password must be atleast 6 digits",
+  "nullValidation":"This Field is Required",
+  "pictureValidation":"Please Enter A Profile Picture",
+  "userNotFound":"No user found for that email",
+  "wrongPassword":"Wrong password provided for that user",
+  "emailInUse":"email already in use",
+  "weakPassword":"The password provided is too weak",
+  "doctorAddSuccess":"successfully added doctor",
+  "rightUserTypeValidation":"please select the right user type",
+"ok":"Ok",
+"resetPasswordRequest":"request was sent to ur email",
+"resetPasswordRequestButtonText":"Send Password Reset"
   
   
-  "welcome": "Welcome",
-  "welcomeBack": "Welcome Back",
-  "thankYou": "Thank You",
-  "pleaseWait": "Please Wait",
-  "areYouSure": "Are You Sure?",
-  "confirmAction": "Confirm Action",
-  "selectOption": "Select Option",
-  "all": "All",
-  "none": "None",
-  
-  
-  "requiredField": "This field is required",
-  "invalidEmail": "Invalid email address",
-  "invalidPhone": "Invalid phone number",
-  "passwordTooShort": "Password is too short",
-  "passwordsDontMatch": "Passwords don't match",
-  
-  
-  "welcomeUser": "Welcome, {name}!",
-  "@welcomeUser": {
-    "description": "Welcome message with username",
-    "placeholders": {
-      "name": {}
-    }
-  },
-  
-  "itemsCount": "{count} item",
-  "@itemsCount": {
-    "description": "Pluralized item count",
-    "placeholders": {
-      "count": {}
-    }
-  },
-  
-  
-  "products": "Products",
-  "categories": "Categories",
-  "cart": "Cart",
-  "checkout": "Checkout",
-  "total": "Total",
-  "price": "Price",
-  "quantity": "Quantity",
-  "description": "Description"
 }

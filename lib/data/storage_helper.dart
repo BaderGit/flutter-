@@ -8,14 +8,10 @@ class StorageHelper {
   StorageHelper._();
   static StorageHelper storageHelper = StorageHelper._();
 
-  // final String cloudName = 'dbugwbcyz';
-  // final String apiKey = '466423851958144';
-  // final String apiSecret = 'zldBvDChEK3AJ_PQov5HNlPlJIA';
   String? cloudName = dotenv.env["CLOUDINARY_CLOUD_NAME"];
   String? apiKey = dotenv.env["CLOUDINARY_API_KEY"];
   String? apiSecret = dotenv.env["CLOUDINARY_API_SECRET"];
-  // String  apiKey
-  // String  apiSecret
+
   Future<String?> uploadImage(File imageFile) async {
     log(cloudName ?? "");
     log(apiKey ?? "");

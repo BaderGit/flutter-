@@ -1,6 +1,9 @@
 import 'dart:developer';
 
+import 'package:final_project/main_layout.dart';
 import 'package:final_project/models/appointment.dart';
+import 'package:final_project/utils/app_router.dart';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:intl/intl.dart';
 
@@ -15,7 +18,12 @@ class LocalNotification {
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  static onTap(NotificationResponse details) {}
+  static onTap(NotificationResponse response) {
+    if (response.payload != null) {
+      // Use a navigator key or other method to handle navigation
+      AppRouter.navigateToWidgetWithReplacment(MainLayout());
+    }
+  }
 
   Future init() async {
     InitializationSettings settings = InitializationSettings(
@@ -30,23 +38,27 @@ class LocalNotification {
     );
   }
 
-  void showSchduledNotification(TZDateTime appointmentTime) async {
-    // tz.initializeTimeZones();
-    // tz.setLocalLocation(tz.getLocation('Africa/Cairo'));
-
+  void showScheduledNotification(TZDateTime appointmentTime) async {
+    tz.initializeTimeZones();
+    tz.setLocalLocation(tz.getLocation('Africa/Cairo'));
     NotificationDetails details = NotificationDetails(
       android: AndroidNotificationDetails(
-        "id 3",
-        " repeated notification",
+        "appointment_reminders",
+        "Appointment Reminders",
         importance: Importance.max,
         priority: Priority.max,
+        channelDescription: "Notifications for upcoming appointments",
       ),
     );
 
+    // Calculate the reminder time (1 day before appointment)
+
+    String formattedTime = DateFormat('h:mm a').format(appointmentTime);
+
     await flutterLocalNotificationsPlugin.zonedSchedule(
-      2,
-      "Scheduled Notification",
-      "body",
+      appointmentTime.millisecondsSinceEpoch ~/ 1000, // Using timestamp as ID
+      "Appointment Reminder",
+      "You have an appointment tomorrow at $formattedTime",
       appointmentTime,
       details,
       androidScheduleMode: AndroidScheduleMode.inexactAllowWhileIdle,
@@ -76,7 +88,7 @@ class LocalNotification {
 
     if (scheduledAppointmentTime.subtract(Duration(days: 1)).day == now.day) {
       if (appointmentReminder.isAfter(now)) {
-        showSchduledNotification(scheduledAppointmentTime);
+        showScheduledNotification(scheduledAppointmentTime);
       }
     }
 
@@ -108,7 +120,7 @@ class LocalNotification {
 
     if (reminder.isAfter(now)) {
       log("inside if $reminder");
-      showSchduledNotification(reminder);
+      showScheduledNotification(reminder);
     }
 
     // log('Appointment as TZDateTime: $appointmentTzDateTime');

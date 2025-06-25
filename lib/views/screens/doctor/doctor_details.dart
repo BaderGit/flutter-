@@ -1,14 +1,15 @@
+import 'package:final_project/l10n/app_localizations.dart';
 import 'package:final_project/models/doctor.dart';
 import 'package:final_project/models/patient.dart';
 import 'package:final_project/providers/firestore_provider.dart';
+import 'package:final_project/providers/language_provider.dart';
 import 'package:final_project/utils/app_router.dart';
 import 'package:final_project/utils/config.dart';
-
 import 'package:final_project/views/screens/appointment/booking_page.dart';
-
 import 'package:final_project/views/widgets/button.dart';
 import 'package:final_project/views/widgets/custom_appbar.dart';
 import 'package:flutter/material.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
@@ -32,15 +33,16 @@ class _DoctorDetailsState extends State<DoctorDetails> {
       patient = provider.patient!;
     });
     doctor = widget.doctor!;
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: CustomAppBar(
-        appTitle: 'Doctor Details',
+        appTitle: localizations.doctorDetailsTitle,
         icon: const FaIcon(Icons.arrow_back_ios),
       ),
       body: SafeArea(
@@ -53,7 +55,7 @@ class _DoctorDetailsState extends State<DoctorDetails> {
               padding: const EdgeInsets.all(20),
               child: Button(
                 width: double.infinity,
-                title: 'Book Appointment',
+                title: localizations.bookAppointment,
                 onPressed: () {
                   AppRouter.navigateToWidget(
                     BookingPage(doctor: doctor, patient: patient),
@@ -71,12 +73,13 @@ class _DoctorDetailsState extends State<DoctorDetails> {
 
 class AboutDoctor extends StatelessWidget {
   const AboutDoctor({Key? key, required this.doctor}) : super(key: key);
-
   final DoctorModel doctor;
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     Config().init(context);
+
     return Container(
       width: double.infinity,
       child: Column(
@@ -88,7 +91,7 @@ class AboutDoctor extends StatelessWidget {
           ),
           Config.spaceMedium,
           Text(
-            "Dr ${doctor.name}",
+            localizations.doctorNameTitle(doctor.name),
             style: const TextStyle(
               color: Colors.black,
               fontSize: 24.0,
@@ -98,19 +101,19 @@ class AboutDoctor extends StatelessWidget {
           Config.spaceSmall,
           SizedBox(
             width: Config.widthSize * 0.75,
-            child: const Text(
-              'MBBS (International Medical University, Malaysia), MRCP (Royal College of Physicians, United Kingdom)',
-              style: TextStyle(color: Colors.grey, fontSize: 15),
+            child: Text(
+              localizations.doctorQualifications,
+              style: const TextStyle(color: Colors.grey, fontSize: 15),
               softWrap: true,
               textAlign: TextAlign.center,
             ),
           ),
-          Config.spaceSmall,
+
           SizedBox(
             width: Config.widthSize * 0.75,
-            child: const Text(
-              'Sarawak General Hospital',
-              style: TextStyle(
+            child: Text(
+              localizations.hospitalName1,
+              style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
                 fontSize: 15,
@@ -131,28 +134,46 @@ class DetailBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     Config().init(context);
-    return Container(
-      padding: const EdgeInsets.all(10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: <Widget>[
-          Config.spaceSmall,
-          DoctorInfo(patients: 15, exp: 4),
-          Config.spaceMedium,
-          const Text(
-            'About Doctor',
-            style: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+
+    return Consumer<LanguageProvider>(
+      builder: (context, lang, child) {
+        return Container(
+          padding: const EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Config.spaceSmall,
+              DoctorInfo(patients: 15, exp: 4),
+              Config.spaceMedium,
+              Center(
+                child: Text(
+                  localizations.aboutDoctorTitle,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              Config.spaceSmall,
+              Text(
+                localizations.doctorDescription(
+                  doctor.name,
+                  lang.getSpecialityLocalization(
+                    doctor.speciality,
+                    localizations,
+                  ),
+                  "",
+                ),
+                style: const TextStyle(fontWeight: FontWeight.w500, height: 1),
+                softWrap: true,
+                textAlign: TextAlign.justify,
+              ),
+            ],
           ),
-          Config.spaceSmall,
-          Text(
-            'Dr. ${doctor.name} is an experience ${doctor.speciality} Specialist at Sarawak, graduated since 2008, and completed his/her training at Sungai Buloh General Hospital.',
-            style: const TextStyle(fontWeight: FontWeight.w500, height: 1.5),
-            softWrap: true,
-            textAlign: TextAlign.justify,
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -166,13 +187,18 @@ class DoctorInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
+
     return Row(
       children: <Widget>[
-        InfoCard(label: 'Patients', value: '$patients'),
+        InfoCard(label: localizations.patientsLabel, value: '$patients'),
         const SizedBox(width: 15),
-        InfoCard(label: 'Experiences', value: '$exp years'),
+        InfoCard(
+          label: localizations.experienceLabel,
+          value: localizations.yearsOfExperience(exp),
+        ),
         const SizedBox(width: 15),
-        const InfoCard(label: 'Rating', value: '4.6'),
+        InfoCard(label: localizations.ratingLabel, value: '4.6'),
       ],
     );
   }

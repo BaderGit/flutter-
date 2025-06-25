@@ -2,6 +2,7 @@ import 'dart:developer';
 
 // import 'package:final_project/utils/app_router.dart';
 
+import 'package:final_project/l10n/app_localizations.dart';
 import 'package:final_project/utils/custom_dialog.dart';
 
 import 'package:firebase_auth/firebase_auth.dart';
@@ -11,7 +12,11 @@ class AuthHelper {
   static AuthHelper authHelper = AuthHelper._();
   FirebaseAuth firebaseAuth = FirebaseAuth.instance;
 
-  Future<UserCredential?> signIn(String emailAddress, String password) async {
+  Future<UserCredential?> signIn(
+    String emailAddress,
+    String password,
+    AppLocalizations localizations,
+  ) async {
     try {
       final credential = await firebaseAuth.signInWithEmailAndPassword(
         email: emailAddress,
@@ -20,10 +25,14 @@ class AuthHelper {
       return credential;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
-        CustomShowDialog.showDialogFunction("No user found for that email.");
+        CustomShowDialog.showDialogFunction(
+          localizations.userNotFound,
+          localizations,
+        );
       } else if (e.code == 'wrong-password') {
         CustomShowDialog.showDialogFunction(
-          "Wrong password provided for that user.",
+          localizations.wrongPassword,
+          localizations,
         );
       }
     }
@@ -40,7 +49,11 @@ class AuthHelper {
   }
 
   // ignore: body_might_complete_normally_nullable
-  Future<UserCredential?> signUp(String emailAddress, String password) async {
+  Future<UserCredential?> signUp(
+    String emailAddress,
+    String password,
+    AppLocalizations localization,
+  ) async {
     try {
       final credential = await firebaseAuth.createUserWithEmailAndPassword(
         email: emailAddress,
@@ -50,10 +63,14 @@ class AuthHelper {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         CustomShowDialog.showDialogFunction(
-          "The password provided is too weak.",
+          localization.weakPassword,
+          localization,
         );
       } else if (e.code == 'email-already-in-use') {
-        CustomShowDialog.showDialogFunction("email-already-in-use");
+        CustomShowDialog.showDialogFunction(
+          localization.emailInUse,
+          localization,
+        );
       }
     } catch (e) {
       log(e.toString());
@@ -64,12 +81,12 @@ class AuthHelper {
     await firebaseAuth.signOut();
   }
 
-  forgetPassword(String email) async {
+  forgetPassword(String email, AppLocalizations loc) async {
     try {
-      await firebaseAuth.sendPasswordResetEmail(email: email);
-      CustomShowDialog.showDialogFunction("request was sent to ur email");
+      await firebaseAuth.setLanguageCode("en");
+      await firebaseAuth.sendPasswordResetEmail(email: "baderahed21@gmail.com");
     } catch (e) {
-      log(e.toString());
+      CustomShowDialog.showDialogFunction(e.toString(), loc);
     }
   }
 }

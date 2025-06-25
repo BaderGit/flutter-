@@ -2,13 +2,17 @@ import 'dart:developer';
 
 import 'package:final_project/data/auth_helper.dart';
 import 'package:final_project/data/firestore_helper.dart';
+import 'package:final_project/l10n/app_localizations.dart';
+
 import 'package:final_project/models/appointment.dart';
 
 import 'package:final_project/models/patient.dart';
 import 'package:final_project/models/doctor.dart';
+import 'package:final_project/utils/custom_dialog.dart';
+import 'package:final_project/utils/local_notification.dart';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 import 'package:intl/intl.dart';
 
 class FireStoreProvider extends ChangeNotifier {
@@ -18,18 +22,10 @@ class FireStoreProvider extends ChangeNotifier {
   List<AppointmentModel?> allAppointments = [];
   List<AppointmentModel?> allStoredAppointments = [];
   List<AppointmentModel?> patienttodaysAppointments = [];
-  List<AppointmentModel?> allPatientAppointments = [];
+
   List<DoctorModel?> filteredDoctors = [];
   String currentCat = "";
-
-  List<Map<String, dynamic>> medCat = [
-    {"icon": FontAwesomeIcons.userDoctor, "category": "General"},
-    {"icon": FontAwesomeIcons.heartPulse, "category": "Cardiology"},
-    {"icon": FontAwesomeIcons.lungs, "category": "Respirations"},
-    {"icon": FontAwesomeIcons.hand, "category": "Dermatology"},
-    {"icon": FontAwesomeIcons.personPregnant, "category": "Gynecology"},
-    {"icon": FontAwesomeIcons.teeth, "category": "Dental"},
-  ];
+  bool isLoading = false;
 
   getPatient() async {
     patient = await FireStoreHelper.fireStoreHelper.getPatientFromFireStore(
@@ -60,6 +56,9 @@ class FireStoreProvider extends ChangeNotifier {
   getAllAppointments() async {
     allAppointments = await FireStoreHelper.fireStoreHelper
         .getAllAppointments();
+    allAppointments.sort((app1, app2) => app1!.time.compareTo(app2!.time));
+    allAppointments.sort((app1, app2) => app1!.date.compareTo(app2!.date));
+
     notifyListeners();
   }
 
@@ -86,7 +85,7 @@ class FireStoreProvider extends ChangeNotifier {
   }
 
   deleteAppointment(String id) async {
-    FireStoreHelper.fireStoreHelper.deleteAppointmentFromFireStore(id);
+    await FireStoreHelper.fireStoreHelper.deleteAppointmentFromFireStore(id);
     allAppointments.removeWhere((appointment) => appointment!.id == id);
 
     notifyListeners();
@@ -95,16 +94,24 @@ class FireStoreProvider extends ChangeNotifier {
     await getTodaysAppointment();
   }
 
-  deleteStoredAppointment(String id) {
-    FireStoreHelper.fireStoreHelper.deleteStoredAppointmentFromFireStore(id);
-    allAppointments.removeWhere((appointment) => appointment!.id == id);
+  deleteStoredAppointment(String id) async {
+    await FireStoreHelper.fireStoreHelper.deleteStoredAppointmentFromFireStore(
+      id,
+    );
+    allStoredAppointments.removeWhere((appointment) => appointment!.id == id);
 
     notifyListeners();
 
-    getAllStoredAppointments();
+    await getAllStoredAppointments();
   }
 
-  updateAppointment(AppointmentModel updatedAppointment) async {
+  updateAppointment(
+    AppointmentModel updatedAppointment,
+    String success,
+    AppLocalizations localization,
+  ) async {
+    isLoading = true;
+    notifyListeners();
     await FireStoreHelper.fireStoreHelper.updateAppointmentInFireStore(
       updatedAppointment,
     );
@@ -113,9 +120,11 @@ class FireStoreProvider extends ChangeNotifier {
     );
     if (index != -1) {
       allAppointments[index] = updatedAppointment;
+      CustomShowDialog.showDialogFunction(success, localization);
+      isLoading = false;
+      notifyListeners();
       notifyListeners();
     }
-
     await getAllAppointments();
     await getAllStoredAppointments();
     await getTodaysAppointment();
@@ -138,15 +147,48 @@ class FireStoreProvider extends ChangeNotifier {
     await getAllStoredAppointments();
   }
 
-  addAppointment(AppointmentModel appointment) async {
-    await FireStoreHelper.fireStoreHelper.addAppointmentToFireStore(
-      appointment,
-    );
-    await getAllAppointments();
-    await getTodaysAppointment();
+  addAppointment(
+    AppointmentModel appointment,
+    String content,
+    String failed,
+    AppLocalizations localization,
+  ) async {
+    try {
+      isLoading = true;
+      notifyListeners();
+      final index = allAppointments.indexWhere((app) {
+        return app!.date == appointment.date &&
+            app.time == appointment.time &&
+            app.doctor.id == appointment.doctor.id;
+      });
+      if (index != -1) {
+        CustomShowDialog.showDialogFunction(failed, localization);
+        return;
+      }
+      await FireStoreHelper.fireStoreHelper.addAppointmentToFireStore(
+        appointment,
+      );
+
+      CustomShowDialog.showDialogFunction(content, localization);
+      LocalNotification.localNotification.getRightTime(appointment);
+
+      await getAllAppointments();
+      await getTodaysAppointment();
+    } catch (e) {
+      log(e.toString());
+    } finally {
+      isLoading = false;
+      notifyListeners();
+    }
   }
 
   storeAppointment(AppointmentModel appointment) async {
+    final index = allStoredAppointments.indexWhere((app) {
+      return app!.date == appointment.date && app.time == appointment.time;
+    });
+    if (index != -1) {
+      return;
+    }
     await FireStoreHelper.fireStoreHelper.storeAppointmentToFireStore(
       appointment,
     );
@@ -163,12 +205,12 @@ class FireStoreProvider extends ChangeNotifier {
   getTodaysAppointment() {
     var now = DateTime.now();
     var todaysDate = DateFormat('M/d/yyyy').format(now);
-    log("this is all appointments${allAppointments.length}");
+    List<AppointmentModel?> allPatientAppointments = [];
+
     allPatientAppointments = allAppointments
         .where((appointment) => appointment!.patient.id == patient!.id)
         .toList();
 
-    log("this is all patient appointments${allPatientAppointments.length}");
     patienttodaysAppointments = allPatientAppointments
         .where((appointment) => appointment!.date == todaysDate)
         .toList();
@@ -177,26 +219,5 @@ class FireStoreProvider extends ChangeNotifier {
     );
 
     notifyListeners();
-    log(
-      "this is all patient todays appointments${patienttodaysAppointments.length}",
-    );
   }
-
-  // getallPatientAppointment() {
-  //   allPatientAppointments = allAppointments
-  //       .where((app) => app!.patient.id == patient!.id)
-  //       .toList();
-
-  //   notifyListeners();
-  //   log("${allPatientAppointments.length}");
-  //   // getTodaysAppointment();
-  // }
-
-  // getallPatientStoredAppointment() {
-  // allPatientAppointments = allStoredAppointments
-  //     .where((app) => app!.patient.id == patient!.id)
-  //     .toList();
-
-  //   notifyListeners();
-  // }
 }

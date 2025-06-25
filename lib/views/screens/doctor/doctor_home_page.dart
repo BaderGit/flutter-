@@ -1,8 +1,8 @@
+import 'package:final_project/l10n/app_localizations.dart';
 import 'package:final_project/models/appointment.dart';
 import 'package:final_project/providers/firestore_provider.dart';
-
+import 'package:final_project/providers/language_provider.dart';
 import 'package:final_project/utils/config.dart';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -26,12 +26,11 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = AppLocalizations.of(context)!;
     filterAppointments(context);
-    return Consumer<FireStoreProvider>(
-      builder: (context, provider, child) {
-        // var filteredDoctorsAppointments = provider.allAppointments
-        //     .where((app) => app!.doctor.id == provider.doctor!.id)
-        //     .toList();
+
+    return Consumer2<FireStoreProvider, LanguageProvider>(
+      builder: (context, fireStore, lang, child) {
         return Scaffold(
           body: SafeArea(
             child: Padding(
@@ -39,16 +38,47 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  const Text(
-                    'Appointment Schedule',
+                  Text(
+                    localizations.appointmentSchedule,
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Config.spaceSmall,
 
                   Expanded(
                     child: filteredDoctorsAppointments.isEmpty
-                        ? Center(child: CircularProgressIndicator())
+                        ? Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.calendar_today_outlined,
+                                  size: 60,
+                                  color: Colors.grey.withAlpha(102),
+                                ),
+                                const SizedBox(height: 20),
+                                Text(
+                                  localizations.noAppointments,
+                                  style: TextStyle(
+                                    fontSize: 18,
+                                    color: Colors.grey.withAlpha(179),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
+                                const SizedBox(height: 10),
+                                Text(
+                                  localizations.upcomingAppointments,
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey.withAlpha(128),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
                         : ListView.builder(
                             itemCount: filteredDoctorsAppointments.length,
                             itemBuilder: ((context, index) {
@@ -89,7 +119,13 @@ class _DoctorHomePageState extends State<DoctorHomePage> {
                                               ),
                                               const SizedBox(height: 5),
                                               Text(
-                                                "Age ${filteredDoctorsAppointments[index]!.patient.age}",
+                                                lang.getGenderLocalization(
+                                                  filteredDoctorsAppointments[index]!
+                                                      .patient
+                                                      .age,
+                                                  localizations,
+                                                ),
+
                                                 style: const TextStyle(
                                                   color: Colors.grey,
                                                   fontSize: 12,

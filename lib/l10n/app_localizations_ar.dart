@@ -9,243 +9,366 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
-  String get appTitle => 'تطبيقي';
+  String get welcomePatient => 'مرحباً بك أيها المريض';
 
   @override
-  String get ok => 'موافق';
+  String get welcomeDoctor => 'مرحباً بك أيها الطبيب';
 
   @override
-  String get cancel => 'إلغاء';
+  String get welcomeAdmin => 'مرحباً بك أيها المسؤول';
 
   @override
-  String get save => 'حفظ';
+  String get signInText => 'تسجيل الدخول إلى حسابك';
 
   @override
-  String get edit => 'تعديل';
-
-  @override
-  String get delete => 'حذف';
-
-  @override
-  String get search => 'بحث';
-
-  @override
-  String get settings => 'الإعدادات';
-
-  @override
-  String get profile => 'الملف الشخصي';
-
-  @override
-  String get home => 'الرئيسية';
-
-  @override
-  String get back => 'رجوع';
-
-  @override
-  String get next => 'التالي';
-
-  @override
-  String get previous => 'السابق';
-
-  @override
-  String get submit => 'إرسال';
-
-  @override
-  String get continueButton => 'متابعة';
-
-  @override
-  String get skip => 'تخطي';
-
-  @override
-  String get done => 'تم';
-
-  @override
-  String get close => 'إغلاق';
-
-  @override
-  String get menu => 'القائمة';
-
-  @override
-  String get dashboard => 'لوحة التحكم';
-
-  @override
-  String get notifications => 'الإشعارات';
-
-  @override
-  String get messages => 'الرسائل';
-
-  @override
-  String get favorites => 'المفضلة';
-
-  @override
-  String get history => 'السجل';
-
-  @override
-  String get login => 'تسجيل الدخول';
-
-  @override
-  String get logout => 'تسجيل الخروج';
-
-  @override
-  String get signup => 'إنشاء حساب';
-
-  @override
-  String get username => 'اسم المستخدم';
-
-  @override
-  String get password => 'كلمة المرور';
-
-  @override
-  String get email => 'البريد الإلكتروني';
+  String get registerText => 'إنشاء حساب جديد';
 
   @override
   String get forgotPassword => 'نسيت كلمة المرور؟';
 
   @override
-  String get resetPassword => 'إعادة تعيين كلمة المرور';
+  String get signUpPrompt => 'ليس لديك حساب؟';
 
   @override
-  String get confirmPassword => 'تأكيد كلمة المرور';
+  String get signInPrompt => 'هل لديك حساب بالفعل؟';
 
   @override
-  String get firstName => 'الاسم الأول';
+  String get signInButton => 'تسجيل الدخول';
 
   @override
-  String get lastName => 'اسم العائلة';
+  String get signUpButton => 'التسجيل';
 
   @override
-  String get phoneNumber => 'رقم الهاتف';
+  String get changeLanguage => 'تغيير اللغة';
 
   @override
-  String get address => 'العنوان';
+  String get backButtonTooltip => 'العودة';
 
   @override
-  String get city => 'المدينة';
+  String get emailHint => 'البريد الإلكتروني';
 
   @override
-  String get country => 'البلد';
+  String get emailLabel => 'البريد';
 
   @override
-  String get zipCode => 'الرمز البريدي';
+  String get passwordHint => 'كلمة المرور';
 
   @override
-  String get success => 'تم بنجاح';
+  String get passwordLabel => 'كلمة السر';
 
   @override
-  String get error => 'خطأ';
+  String get showPassword => 'إظهار كلمة المرور';
 
   @override
-  String get warning => 'تحذير';
+  String get hidePassword => 'إخفاء كلمة المرور';
 
   @override
-  String get info => 'معلومة';
+  String get uploadPhoto => 'رفع صورة';
 
   @override
-  String get loading => 'جاري التحميل...';
+  String get fullNameHint => 'الاسم الكامل';
 
   @override
-  String get noInternet => 'لا يوجد اتصال بالإنترنت';
+  String get ageHint => 'العمر';
 
   @override
-  String get tryAgain => 'حاول مرة أخرى';
+  String get genderHint => 'الجنس';
 
   @override
-  String get noResults => 'لا توجد نتائج';
+  String get createAccount => 'إنشاء حساب';
+
+  @override
+  String get addNewDoctor => 'إضافة طبيب جديد';
+
+  @override
+  String get logout => 'تسجيل الخروج';
+
+  @override
+  String get fullNameLabel => 'الاسم الكامل';
+
+  @override
+  String get specialityHint => 'التخصص';
+
+  @override
+  String get specialityLabel => 'التخصص';
+
+  @override
+  String get welcomeText => 'مرحباً';
+
+  @override
+  String get selectUserType => 'اختر نوع المستخدم:';
+
+  @override
+  String get patient => 'مريض';
+
+  @override
+  String get doctor => 'طبيب';
+
+  @override
+  String get staff => 'موظف';
+
+  @override
+  String get continueText => 'متابعة';
+
+  @override
+  String get selectTypeError => 'الرجاء اختيار نوع المستخدم';
+
+  @override
+  String get welcome => 'مرحباً';
+
+  @override
+  String get appointmentToday => 'الموعد اليوم';
+
+  @override
+  String get noAppointmentToday => 'لا يوجد موعد اليوم';
+
+  @override
+  String get category => 'الفئة';
+
+  @override
+  String get topDoctors => 'أفضل الأطباء';
+
+  @override
+  String get noDoctorsAvailable => 'لا يوجد أطباء متاحين';
+
+  @override
+  String get yearsOld => 'سنة';
+
+  @override
+  String get profile => 'الملف الشخصي';
+
+  @override
+  String get appointmentSchedule => 'جدول المواعيد';
+
+  @override
+  String get noAppointments => 'لا توجد مواعيد مجدولة';
+
+  @override
+  String get upcomingAppointments => 'ستظهر مواعيدك القادمة هنا';
+
+  @override
+  String get cancel => 'إلغاء';
+
+  @override
+  String get reschedule => 'إعادة جدولة';
+
+  @override
+  String get historyTitle => 'السجل';
+
+  @override
+  String get noAppointmentsFound => 'لا توجد مواعيد';
+
+  @override
+  String get appointmentHistoryHint => 'سوف تظهر سجل مواعيدك هنا';
+
+  @override
+  String get deleteButton => 'حذف';
+
+  @override
+  String get appointmentTitle => 'حجز موعد';
+
+  @override
+  String get selectConsultationTime => 'حدد وقت الاستشارة';
+
+  @override
+  String get weekendNotAvailable => 'العطلة الأسبوعية غير متاحة، يرجى اختيار تاريخ آخر';
+
+  @override
+  String get timeAm => 'ص';
+
+  @override
+  String get timePm => 'م';
+
+  @override
+  String get updateAppointment => 'تحديث الموعد';
+
+  @override
+  String get makeAppointment => 'حجز موعد';
+
+  @override
+  String appointmentUpdatedSuccessfully(Object doctorName) {
+    return 'تم تحديث موعدك مع $doctorName بنجاح.';
+  }
+
+  @override
+  String appointmentScheduledSuccessfully(Object doctorName) {
+    return 'تم جدولة موعدك مع $doctorName بنجاح.';
+  }
+
+  @override
+  String get general => 'عام';
+
+  @override
+  String get cardiology => 'قلب';
+
+  @override
+  String get respirations => 'تنفس';
+
+  @override
+  String get dermatology => 'جلدية';
+
+  @override
+  String get gynecology => 'نساء وتوليد';
+
+  @override
+  String get dental => 'أسنان';
+
+  @override
+  String get doctorDetailsTitle => 'تفاصيل الطبيب';
+
+  @override
+  String get bookAppointment => 'حجز موعد';
+
+  @override
+  String doctorNameTitle(Object name) {
+    return 'د. $name';
+  }
+
+  @override
+  String get doctorQualifications => 'بكالوريوس في الطب والجراحة (الجامعة الطبية الدولية، ماليزيا)، زمالة الكلية الملكية للأطباء (المملكة المتحدة)';
+
+  @override
+  String get hospitalName1 => 'مستشفى ساراواك العام';
+
+  @override
+  String get hospitalName2 => 'المركز الملكي للقلب';
+
+  @override
+  String get hospitalName3 => 'المعهد الوطني لأمراض الجهاز التنفسي';
+
+  @override
+  String get hospitalName4 => 'مستشفى هارموني العام';
+
+  @override
+  String get aboutDoctorTitle => 'حول الطبيب';
+
+  @override
+  String doctorDescription(Object hospitalName, Object name, Object speciality) {
+    return 'الدكتور/ة $name هو/هي أخصائي $speciality ذو خبرة في ساراواك، تخرج منذ عام 2008، وأكمل تدريبه/ها في $hospitalName بولوه العام.';
+  }
+
+  @override
+  String get patientsLabel => 'المرضى';
+
+  @override
+  String get experienceLabel => 'الخبرة';
+
+  @override
+  String yearsOfExperience(Object years) {
+    return '$years سنوات';
+  }
+
+  @override
+  String get ratingLabel => 'التقييم';
+
+  @override
+  String get monday => 'الاثنين';
+
+  @override
+  String get tuesday => 'الثلاثاء';
+
+  @override
+  String get wednesday => 'الأربعاء';
+
+  @override
+  String get thursday => 'الخميس';
+
+  @override
+  String get friday => 'الجمعة';
+
+  @override
+  String get saturday => 'السبت';
+
+  @override
+  String get sunday => 'الأحد';
+
+  @override
+  String get time_9am => '9:00 ص';
+
+  @override
+  String get time_10am => '10:00 ص';
+
+  @override
+  String get time_11am => '11:00 ص';
+
+  @override
+  String get time_12pm => '12:00 م';
+
+  @override
+  String get time_1pm => '13:00 م';
+
+  @override
+  String get time_2pm => '4:00 م';
+
+  @override
+  String get time_3pm => '15:00 م';
+
+  @override
+  String get time_4pm => '16:00 م';
+
+  @override
+  String get home => 'الرئيسية';
+
+  @override
+  String get history => 'السجل';
+
+  @override
+  String get appointments => 'المواعيد';
 
   @override
   String get today => 'اليوم';
 
   @override
-  String get yesterday => 'الأمس';
+  String get tomorrow => 'غداً';
 
   @override
-  String get tomorrow => 'غدًا';
+  String get male => 'ذكر';
 
   @override
-  String get day => 'يوم';
+  String get female => 'أنثى';
 
   @override
-  String get week => 'أسبوع';
+  String get markCompleted => 'مكتمل';
 
   @override
-  String get month => 'شهر';
+  String get bookingFailed => 'هذا الموعد غير متاح';
 
   @override
-  String get year => 'سنة';
+  String get emailValidation => 'صيغة حساب خاطئة';
 
   @override
-  String get welcome => 'أهلاً بك';
+  String get passwordValidation => 'كلمة السر يجب ان تكون ستة خانات';
 
   @override
-  String get welcomeBack => 'أهلاً بعودتك';
+  String get nullValidation => 'هذا الحقل مطلوب';
 
   @override
-  String get thankYou => 'شكرًا لك';
+  String get pictureValidation => 'الرجاء اختيار صورة';
 
   @override
-  String get pleaseWait => 'يرجى الانتظار';
+  String get userNotFound => 'لم يتم العثور على المستخدم';
 
   @override
-  String get areYouSure => 'هل أنت متأكد؟';
+  String get wrongPassword => 'كلمة السر خاطئة';
 
   @override
-  String get confirmAction => 'تأكيد الإجراء';
+  String get emailInUse => 'الحساب موجود بالفعل';
 
   @override
-  String get selectOption => 'اختر خيارًا';
+  String get weakPassword => 'كلمة السر ضعيفة';
 
   @override
-  String get all => 'الكل';
+  String get doctorAddSuccess => 'تم اضافة الطبيب بنجاح';
 
   @override
-  String get none => 'لا شيء';
+  String get rightUserTypeValidation => ' الرجاء اختيار المستخدم الصحيح';
 
   @override
-  String get requiredField => 'هذا الحقل مطلوب';
+  String get ok => 'تم';
 
   @override
-  String get invalidEmail => 'بريد إلكتروني غير صالح';
+  String get resetPasswordRequest => 'تم ارسال طلب اعادة تعيين كلمة السر';
 
   @override
-  String get invalidPhone => 'رقم هاتف غير صالح';
-
-  @override
-  String get passwordTooShort => 'كلمة المرور قصيرة جدًا';
-
-  @override
-  String get passwordsDontMatch => 'كلمتا المرور غير متطابقتين';
-
-  @override
-  String welcomeUser(Object name) {
-    return 'أهلاً بك، $name!';
-  }
-
-  @override
-  String itemsCount(Object count) {
-    return '$count عنصر';
-  }
-
-  @override
-  String get products => 'المنتجات';
-
-  @override
-  String get categories => 'الفئات';
-
-  @override
-  String get cart => 'عربة التسوق';
-
-  @override
-  String get checkout => 'الدفع';
-
-  @override
-  String get total => 'المجموع';
-
-  @override
-  String get price => 'السعر';
-
-  @override
-  String get quantity => 'الكمية';
-
-  @override
-  String get description => 'الوصف';
+  String get resetPasswordRequestButtonText => 'اعادة تعيين كلمة السر';
 }

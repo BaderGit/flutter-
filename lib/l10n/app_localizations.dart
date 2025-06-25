@@ -95,335 +95,215 @@ abstract class AppLocalizations {
     Locale('en')
   ];
 
-  /// No description provided for @appTitle.
+  /// Welcome message for patients
   ///
   /// In en, this message translates to:
-  /// **'My App'**
-  String get appTitle;
+  /// **'Welcome Patient'**
+  String get welcomePatient;
 
-  /// No description provided for @ok.
+  /// Welcome message for doctors
   ///
   /// In en, this message translates to:
-  /// **'OK'**
-  String get ok;
+  /// **'Welcome Doctor'**
+  String get welcomeDoctor;
 
-  /// No description provided for @cancel.
+  /// Welcome message for admins
   ///
   /// In en, this message translates to:
-  /// **'Cancel'**
-  String get cancel;
+  /// **'Welcome Staff'**
+  String get welcomeAdmin;
 
-  /// No description provided for @save.
+  /// Sign in heading text
   ///
   /// In en, this message translates to:
-  /// **'Save'**
-  String get save;
+  /// **'Sign in to your account'**
+  String get signInText;
 
-  /// No description provided for @edit.
+  /// Registration heading text
   ///
   /// In en, this message translates to:
-  /// **'Edit'**
-  String get edit;
+  /// **'Create an account'**
+  String get registerText;
 
-  /// No description provided for @delete.
-  ///
-  /// In en, this message translates to:
-  /// **'Delete'**
-  String get delete;
-
-  /// No description provided for @search.
-  ///
-  /// In en, this message translates to:
-  /// **'Search'**
-  String get search;
-
-  /// No description provided for @settings.
-  ///
-  /// In en, this message translates to:
-  /// **'Settings'**
-  String get settings;
-
-  /// No description provided for @profile.
-  ///
-  /// In en, this message translates to:
-  /// **'Profile'**
-  String get profile;
-
-  /// No description provided for @home.
-  ///
-  /// In en, this message translates to:
-  /// **'Home'**
-  String get home;
-
-  /// No description provided for @back.
-  ///
-  /// In en, this message translates to:
-  /// **'Back'**
-  String get back;
-
-  /// No description provided for @next.
-  ///
-  /// In en, this message translates to:
-  /// **'Next'**
-  String get next;
-
-  /// No description provided for @previous.
-  ///
-  /// In en, this message translates to:
-  /// **'Previous'**
-  String get previous;
-
-  /// No description provided for @submit.
-  ///
-  /// In en, this message translates to:
-  /// **'Submit'**
-  String get submit;
-
-  /// No description provided for @continueButton.
-  ///
-  /// In en, this message translates to:
-  /// **'Continue'**
-  String get continueButton;
-
-  /// No description provided for @skip.
-  ///
-  /// In en, this message translates to:
-  /// **'Skip'**
-  String get skip;
-
-  /// No description provided for @done.
-  ///
-  /// In en, this message translates to:
-  /// **'Done'**
-  String get done;
-
-  /// No description provided for @close.
-  ///
-  /// In en, this message translates to:
-  /// **'Close'**
-  String get close;
-
-  /// No description provided for @menu.
-  ///
-  /// In en, this message translates to:
-  /// **'Menu'**
-  String get menu;
-
-  /// No description provided for @dashboard.
-  ///
-  /// In en, this message translates to:
-  /// **'Dashboard'**
-  String get dashboard;
-
-  /// No description provided for @notifications.
-  ///
-  /// In en, this message translates to:
-  /// **'Notifications'**
-  String get notifications;
-
-  /// No description provided for @messages.
-  ///
-  /// In en, this message translates to:
-  /// **'Messages'**
-  String get messages;
-
-  /// No description provided for @favorites.
-  ///
-  /// In en, this message translates to:
-  /// **'Favorites'**
-  String get favorites;
-
-  /// No description provided for @history.
-  ///
-  /// In en, this message translates to:
-  /// **'History'**
-  String get history;
-
-  /// No description provided for @login.
-  ///
-  /// In en, this message translates to:
-  /// **'Login'**
-  String get login;
-
-  /// No description provided for @logout.
-  ///
-  /// In en, this message translates to:
-  /// **'Logout'**
-  String get logout;
-
-  /// No description provided for @signup.
-  ///
-  /// In en, this message translates to:
-  /// **'Sign Up'**
-  String get signup;
-
-  /// No description provided for @username.
-  ///
-  /// In en, this message translates to:
-  /// **'Username'**
-  String get username;
-
-  /// No description provided for @password.
-  ///
-  /// In en, this message translates to:
-  /// **'Password'**
-  String get password;
-
-  /// No description provided for @email.
-  ///
-  /// In en, this message translates to:
-  /// **'Email'**
-  String get email;
-
-  /// No description provided for @forgotPassword.
+  /// Forgot password link text
   ///
   /// In en, this message translates to:
   /// **'Forgot Password?'**
   String get forgotPassword;
 
-  /// No description provided for @resetPassword.
+  /// Prompt to sign up when in sign in mode
   ///
   /// In en, this message translates to:
-  /// **'Reset Password'**
-  String get resetPassword;
+  /// **'Don\'t have an account?'**
+  String get signUpPrompt;
 
-  /// No description provided for @confirmPassword.
+  /// Prompt to sign in when in sign up mode
   ///
   /// In en, this message translates to:
-  /// **'Confirm Password'**
-  String get confirmPassword;
+  /// **'Already have an account?'**
+  String get signInPrompt;
 
-  /// No description provided for @firstName.
+  /// Text for sign in button
   ///
   /// In en, this message translates to:
-  /// **'First Name'**
-  String get firstName;
+  /// **'Sign In'**
+  String get signInButton;
 
-  /// No description provided for @lastName.
+  /// Sign up button text
   ///
   /// In en, this message translates to:
-  /// **'Last Name'**
-  String get lastName;
+  /// **'Sign Up'**
+  String get signUpButton;
 
-  /// No description provided for @phoneNumber.
+  /// Change language button text
   ///
   /// In en, this message translates to:
-  /// **'Phone Number'**
-  String get phoneNumber;
+  /// **'Change language'**
+  String get changeLanguage;
 
-  /// No description provided for @address.
+  /// Tooltip for back button
   ///
   /// In en, this message translates to:
-  /// **'Address'**
-  String get address;
+  /// **'Go back'**
+  String get backButtonTooltip;
 
-  /// No description provided for @city.
+  /// Hint text for email input field
   ///
   /// In en, this message translates to:
-  /// **'City'**
-  String get city;
+  /// **'Email Address'**
+  String get emailHint;
 
-  /// No description provided for @country.
+  /// Label text for email input field
   ///
   /// In en, this message translates to:
-  /// **'Country'**
-  String get country;
+  /// **'Email'**
+  String get emailLabel;
 
-  /// No description provided for @zipCode.
+  /// Hint text for password input field
   ///
   /// In en, this message translates to:
-  /// **'Zip Code'**
-  String get zipCode;
+  /// **'Password'**
+  String get passwordHint;
 
-  /// No description provided for @success.
+  /// Label text for password input field
   ///
   /// In en, this message translates to:
-  /// **'Success'**
-  String get success;
+  /// **'Password'**
+  String get passwordLabel;
 
-  /// No description provided for @error.
+  /// Tooltip text for show password button
   ///
   /// In en, this message translates to:
-  /// **'Error'**
-  String get error;
+  /// **'Show password'**
+  String get showPassword;
 
-  /// No description provided for @warning.
+  /// Tooltip text for hide password button
   ///
   /// In en, this message translates to:
-  /// **'Warning'**
-  String get warning;
+  /// **'Hide password'**
+  String get hidePassword;
 
-  /// No description provided for @info.
+  /// Tooltip for photo upload button
   ///
   /// In en, this message translates to:
-  /// **'Info'**
-  String get info;
+  /// **'Upload photo'**
+  String get uploadPhoto;
 
-  /// No description provided for @loading.
+  /// Hint text for full name input field
   ///
   /// In en, this message translates to:
-  /// **'Loading...'**
-  String get loading;
+  /// **'Full name'**
+  String get fullNameHint;
 
-  /// No description provided for @noInternet.
+  /// Hint text for age input field
   ///
   /// In en, this message translates to:
-  /// **'No Internet Connection'**
-  String get noInternet;
+  /// **'Age'**
+  String get ageHint;
 
-  /// No description provided for @tryAgain.
+  /// Hint text for gender input field
   ///
   /// In en, this message translates to:
-  /// **'Try Again'**
-  String get tryAgain;
+  /// **'Gender'**
+  String get genderHint;
 
-  /// No description provided for @noResults.
+  /// Text for create account button
   ///
   /// In en, this message translates to:
-  /// **'No Results Found'**
-  String get noResults;
+  /// **'Create account'**
+  String get createAccount;
 
-  /// No description provided for @today.
+  /// Title for adding new doctor screen
   ///
   /// In en, this message translates to:
-  /// **'Today'**
-  String get today;
+  /// **'Add New Doctor'**
+  String get addNewDoctor;
 
-  /// No description provided for @yesterday.
+  /// Tooltip for logout button
   ///
   /// In en, this message translates to:
-  /// **'Yesterday'**
-  String get yesterday;
+  /// **'Logout'**
+  String get logout;
 
-  /// No description provided for @tomorrow.
+  /// Label text for full name input field
   ///
   /// In en, this message translates to:
-  /// **'Tomorrow'**
-  String get tomorrow;
+  /// **'Full name'**
+  String get fullNameLabel;
 
-  /// No description provided for @day.
+  /// Hint text for speciality dropdown
   ///
   /// In en, this message translates to:
-  /// **'Day'**
-  String get day;
+  /// **'Speciality'**
+  String get specialityHint;
 
-  /// No description provided for @week.
+  /// Label text for speciality dropdown
   ///
   /// In en, this message translates to:
-  /// **'Week'**
-  String get week;
+  /// **'Speciality'**
+  String get specialityLabel;
 
-  /// No description provided for @month.
+  /// No description provided for @welcomeText.
   ///
   /// In en, this message translates to:
-  /// **'Month'**
-  String get month;
+  /// **'Welcome'**
+  String get welcomeText;
 
-  /// No description provided for @year.
+  /// No description provided for @selectUserType.
   ///
   /// In en, this message translates to:
-  /// **'Year'**
-  String get year;
+  /// **'Select your user type:'**
+  String get selectUserType;
+
+  /// No description provided for @patient.
+  ///
+  /// In en, this message translates to:
+  /// **'Patient'**
+  String get patient;
+
+  /// No description provided for @doctor.
+  ///
+  /// In en, this message translates to:
+  /// **'Doctor'**
+  String get doctor;
+
+  /// No description provided for @staff.
+  ///
+  /// In en, this message translates to:
+  /// **'Staff'**
+  String get staff;
+
+  /// No description provided for @continueText.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueText;
+
+  /// Error message when user doesn't select a type
+  ///
+  /// In en, this message translates to:
+  /// **'Please select your user type'**
+  String get selectTypeError;
 
   /// No description provided for @welcome.
   ///
@@ -431,143 +311,497 @@ abstract class AppLocalizations {
   /// **'Welcome'**
   String get welcome;
 
-  /// No description provided for @welcomeBack.
+  /// No description provided for @appointmentToday.
   ///
   /// In en, this message translates to:
-  /// **'Welcome Back'**
-  String get welcomeBack;
+  /// **'Appointment Today'**
+  String get appointmentToday;
 
-  /// No description provided for @thankYou.
+  /// No description provided for @noAppointmentToday.
   ///
   /// In en, this message translates to:
-  /// **'Thank You'**
-  String get thankYou;
+  /// **'No Appointment Today'**
+  String get noAppointmentToday;
 
-  /// No description provided for @pleaseWait.
+  /// No description provided for @category.
   ///
   /// In en, this message translates to:
-  /// **'Please Wait'**
-  String get pleaseWait;
+  /// **'Category'**
+  String get category;
 
-  /// No description provided for @areYouSure.
+  /// No description provided for @topDoctors.
   ///
   /// In en, this message translates to:
-  /// **'Are You Sure?'**
-  String get areYouSure;
+  /// **'Top Doctors'**
+  String get topDoctors;
 
-  /// No description provided for @confirmAction.
+  /// No description provided for @noDoctorsAvailable.
   ///
   /// In en, this message translates to:
-  /// **'Confirm Action'**
-  String get confirmAction;
+  /// **'No doctors available'**
+  String get noDoctorsAvailable;
 
-  /// No description provided for @selectOption.
+  /// No description provided for @yearsOld.
   ///
   /// In en, this message translates to:
-  /// **'Select Option'**
-  String get selectOption;
+  /// **'Years Old'**
+  String get yearsOld;
 
-  /// No description provided for @all.
+  /// No description provided for @profile.
   ///
   /// In en, this message translates to:
-  /// **'All'**
-  String get all;
+  /// **'Profile'**
+  String get profile;
 
-  /// No description provided for @none.
+  /// No description provided for @appointmentSchedule.
   ///
   /// In en, this message translates to:
-  /// **'None'**
-  String get none;
+  /// **'Appointment Schedule'**
+  String get appointmentSchedule;
 
-  /// No description provided for @requiredField.
+  /// No description provided for @noAppointments.
   ///
   /// In en, this message translates to:
-  /// **'This field is required'**
-  String get requiredField;
+  /// **'No Appointments Scheduled'**
+  String get noAppointments;
 
-  /// No description provided for @invalidEmail.
+  /// No description provided for @upcomingAppointments.
   ///
   /// In en, this message translates to:
-  /// **'Invalid email address'**
-  String get invalidEmail;
+  /// **'Your upcoming appointments will appear here'**
+  String get upcomingAppointments;
 
-  /// No description provided for @invalidPhone.
+  /// No description provided for @cancel.
   ///
   /// In en, this message translates to:
-  /// **'Invalid phone number'**
-  String get invalidPhone;
+  /// **'Cancel'**
+  String get cancel;
 
-  /// No description provided for @passwordTooShort.
+  /// No description provided for @reschedule.
   ///
   /// In en, this message translates to:
-  /// **'Password is too short'**
-  String get passwordTooShort;
+  /// **'Reschedule'**
+  String get reschedule;
 
-  /// No description provided for @passwordsDontMatch.
+  /// No description provided for @historyTitle.
   ///
   /// In en, this message translates to:
-  /// **'Passwords don\'t match'**
-  String get passwordsDontMatch;
+  /// **'History'**
+  String get historyTitle;
 
-  /// Welcome message with username
+  /// No description provided for @noAppointmentsFound.
   ///
   /// In en, this message translates to:
-  /// **'Welcome, {name}!'**
-  String welcomeUser(Object name);
+  /// **'No Appointments Found'**
+  String get noAppointmentsFound;
 
-  /// Pluralized item count
+  /// No description provided for @appointmentHistoryHint.
   ///
   /// In en, this message translates to:
-  /// **'{count} item'**
-  String itemsCount(Object count);
+  /// **'Your appointment history will appear here'**
+  String get appointmentHistoryHint;
 
-  /// No description provided for @products.
+  /// No description provided for @deleteButton.
   ///
   /// In en, this message translates to:
-  /// **'Products'**
-  String get products;
+  /// **'Delete'**
+  String get deleteButton;
 
-  /// No description provided for @categories.
+  /// No description provided for @appointmentTitle.
   ///
   /// In en, this message translates to:
-  /// **'Categories'**
-  String get categories;
+  /// **'Appointment'**
+  String get appointmentTitle;
 
-  /// No description provided for @cart.
+  /// No description provided for @selectConsultationTime.
   ///
   /// In en, this message translates to:
-  /// **'Cart'**
-  String get cart;
+  /// **'Select Consultation Time'**
+  String get selectConsultationTime;
 
-  /// No description provided for @checkout.
+  /// No description provided for @weekendNotAvailable.
   ///
   /// In en, this message translates to:
-  /// **'Checkout'**
-  String get checkout;
+  /// **'Weekend is not available, please select another date'**
+  String get weekendNotAvailable;
 
-  /// No description provided for @total.
+  /// No description provided for @timeAm.
   ///
   /// In en, this message translates to:
-  /// **'Total'**
-  String get total;
+  /// **'AM'**
+  String get timeAm;
 
-  /// No description provided for @price.
+  /// No description provided for @timePm.
   ///
   /// In en, this message translates to:
-  /// **'Price'**
-  String get price;
+  /// **'PM'**
+  String get timePm;
 
-  /// No description provided for @quantity.
+  /// No description provided for @updateAppointment.
   ///
   /// In en, this message translates to:
-  /// **'Quantity'**
-  String get quantity;
+  /// **'Update Appointment'**
+  String get updateAppointment;
 
-  /// No description provided for @description.
+  /// No description provided for @makeAppointment.
   ///
   /// In en, this message translates to:
-  /// **'Description'**
-  String get description;
+  /// **'Make Appointment'**
+  String get makeAppointment;
+
+  /// No description provided for @appointmentUpdatedSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Your appointment with {doctorName} has been updated successfully.'**
+  String appointmentUpdatedSuccessfully(Object doctorName);
+
+  /// No description provided for @appointmentScheduledSuccessfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Your appointment with {doctorName} has been scheduled successfully.'**
+  String appointmentScheduledSuccessfully(Object doctorName);
+
+  /// No description provided for @general.
+  ///
+  /// In en, this message translates to:
+  /// **'General'**
+  String get general;
+
+  /// No description provided for @cardiology.
+  ///
+  /// In en, this message translates to:
+  /// **'Cardiology'**
+  String get cardiology;
+
+  /// No description provided for @respirations.
+  ///
+  /// In en, this message translates to:
+  /// **'Respirations'**
+  String get respirations;
+
+  /// No description provided for @dermatology.
+  ///
+  /// In en, this message translates to:
+  /// **'Dermatology'**
+  String get dermatology;
+
+  /// No description provided for @gynecology.
+  ///
+  /// In en, this message translates to:
+  /// **'Gynecology'**
+  String get gynecology;
+
+  /// No description provided for @dental.
+  ///
+  /// In en, this message translates to:
+  /// **'Dental'**
+  String get dental;
+
+  /// No description provided for @doctorDetailsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Doctor Details'**
+  String get doctorDetailsTitle;
+
+  /// No description provided for @bookAppointment.
+  ///
+  /// In en, this message translates to:
+  /// **'Book Appointment'**
+  String get bookAppointment;
+
+  /// No description provided for @doctorNameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Dr {name}'**
+  String doctorNameTitle(Object name);
+
+  /// No description provided for @doctorQualifications.
+  ///
+  /// In en, this message translates to:
+  /// **'MBBS (International Medical University, Malaysia), MRCP (Royal College of Physicians, United Kingdom)'**
+  String get doctorQualifications;
+
+  /// No description provided for @hospitalName1.
+  ///
+  /// In en, this message translates to:
+  /// **'Sarawak General Hospital'**
+  String get hospitalName1;
+
+  /// No description provided for @hospitalName2.
+  ///
+  /// In en, this message translates to:
+  /// **'Royal Cardiac Center'**
+  String get hospitalName2;
+
+  /// No description provided for @hospitalName3.
+  ///
+  /// In en, this message translates to:
+  /// **'National Respiratory Institute'**
+  String get hospitalName3;
+
+  /// No description provided for @hospitalName4.
+  ///
+  /// In en, this message translates to:
+  /// **'Harmony General Hospital'**
+  String get hospitalName4;
+
+  /// No description provided for @aboutDoctorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'About Doctor'**
+  String get aboutDoctorTitle;
+
+  /// No description provided for @doctorDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'Dr. {name} is an experience {speciality} Specialist at Sarawak, graduated since 2008, and completed his/her training at Sungai Buloh General Hospital.'**
+  String doctorDescription(Object hospitalName, Object name, Object speciality);
+
+  /// No description provided for @patientsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Patients'**
+  String get patientsLabel;
+
+  /// No description provided for @experienceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Experiences'**
+  String get experienceLabel;
+
+  /// No description provided for @yearsOfExperience.
+  ///
+  /// In en, this message translates to:
+  /// **'{years} years'**
+  String yearsOfExperience(Object years);
+
+  /// No description provided for @ratingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Rating'**
+  String get ratingLabel;
+
+  /// No description provided for @monday.
+  ///
+  /// In en, this message translates to:
+  /// **'Monday'**
+  String get monday;
+
+  /// No description provided for @tuesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Tuesday'**
+  String get tuesday;
+
+  /// No description provided for @wednesday.
+  ///
+  /// In en, this message translates to:
+  /// **'Wednesday'**
+  String get wednesday;
+
+  /// No description provided for @thursday.
+  ///
+  /// In en, this message translates to:
+  /// **'Thursday'**
+  String get thursday;
+
+  /// No description provided for @friday.
+  ///
+  /// In en, this message translates to:
+  /// **'Friday'**
+  String get friday;
+
+  /// No description provided for @saturday.
+  ///
+  /// In en, this message translates to:
+  /// **'Saturday'**
+  String get saturday;
+
+  /// No description provided for @sunday.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunday'**
+  String get sunday;
+
+  /// No description provided for @time_9am.
+  ///
+  /// In en, this message translates to:
+  /// **'9:00 AM'**
+  String get time_9am;
+
+  /// No description provided for @time_10am.
+  ///
+  /// In en, this message translates to:
+  /// **'10:00 AM'**
+  String get time_10am;
+
+  /// No description provided for @time_11am.
+  ///
+  /// In en, this message translates to:
+  /// **'11:00 AM'**
+  String get time_11am;
+
+  /// No description provided for @time_12pm.
+  ///
+  /// In en, this message translates to:
+  /// **'12:00 PM'**
+  String get time_12pm;
+
+  /// No description provided for @time_1pm.
+  ///
+  /// In en, this message translates to:
+  /// **'13:00 PM'**
+  String get time_1pm;
+
+  /// No description provided for @time_2pm.
+  ///
+  /// In en, this message translates to:
+  /// **'14:00 PM'**
+  String get time_2pm;
+
+  /// No description provided for @time_3pm.
+  ///
+  /// In en, this message translates to:
+  /// **'15:00 PM'**
+  String get time_3pm;
+
+  /// No description provided for @time_4pm.
+  ///
+  /// In en, this message translates to:
+  /// **'16:00 PM'**
+  String get time_4pm;
+
+  /// No description provided for @home.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get home;
+
+  /// No description provided for @history.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get history;
+
+  /// No description provided for @appointments.
+  ///
+  /// In en, this message translates to:
+  /// **'Appointments'**
+  String get appointments;
+
+  /// No description provided for @today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// No description provided for @tomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow'**
+  String get tomorrow;
+
+  /// No description provided for @male.
+  ///
+  /// In en, this message translates to:
+  /// **'male'**
+  String get male;
+
+  /// No description provided for @female.
+  ///
+  /// In en, this message translates to:
+  /// **'female'**
+  String get female;
+
+  /// No description provided for @markCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get markCompleted;
+
+  /// No description provided for @bookingFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Unavailable Appointment'**
+  String get bookingFailed;
+
+  /// No description provided for @emailValidation.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect email form'**
+  String get emailValidation;
+
+  /// No description provided for @passwordValidation.
+  ///
+  /// In en, this message translates to:
+  /// **'password must be atleast 6 digits'**
+  String get passwordValidation;
+
+  /// No description provided for @nullValidation.
+  ///
+  /// In en, this message translates to:
+  /// **'This Field is Required'**
+  String get nullValidation;
+
+  /// No description provided for @pictureValidation.
+  ///
+  /// In en, this message translates to:
+  /// **'Please Enter A Profile Picture'**
+  String get pictureValidation;
+
+  /// No description provided for @userNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No user found for that email'**
+  String get userNotFound;
+
+  /// No description provided for @wrongPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrong password provided for that user'**
+  String get wrongPassword;
+
+  /// No description provided for @emailInUse.
+  ///
+  /// In en, this message translates to:
+  /// **'email already in use'**
+  String get emailInUse;
+
+  /// No description provided for @weakPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'The password provided is too weak'**
+  String get weakPassword;
+
+  /// No description provided for @doctorAddSuccess.
+  ///
+  /// In en, this message translates to:
+  /// **'successfully added doctor'**
+  String get doctorAddSuccess;
+
+  /// No description provided for @rightUserTypeValidation.
+  ///
+  /// In en, this message translates to:
+  /// **'please select the right user type'**
+  String get rightUserTypeValidation;
+
+  /// No description provided for @ok.
+  ///
+  /// In en, this message translates to:
+  /// **'Ok'**
+  String get ok;
+
+  /// No description provided for @resetPasswordRequest.
+  ///
+  /// In en, this message translates to:
+  /// **'request was sent to ur email'**
+  String get resetPasswordRequest;
+
+  /// No description provided for @resetPasswordRequestButtonText.
+  ///
+  /// In en, this message translates to:
+  /// **'Send Password Reset'**
+  String get resetPasswordRequestButtonText;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

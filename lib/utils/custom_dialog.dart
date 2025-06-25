@@ -1,8 +1,9 @@
+import 'package:final_project/l10n/app_localizations.dart';
 import 'package:final_project/utils/app_router.dart';
 import 'package:flutter/material.dart';
 
 class CustomShowDialog {
-  static showDialogFunction(String content) {
+  static showDialogFunction(String content, AppLocalizations localization) {
     showDialog(
       context: AppRouter.navKey.currentContext!,
 
@@ -14,7 +15,7 @@ class CustomShowDialog {
               onPressed: () {
                 AppRouter.popRoute();
               },
-              child: Text("OK"),
+              child: Text(localization.ok),
             ),
           ],
         );
